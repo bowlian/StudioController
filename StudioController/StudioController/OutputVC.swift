@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  OutputVC.swift
 //  StudioController
 //
 //  Created by Bradley Klemick on 10/21/15.
@@ -8,20 +8,18 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
-
+class OutputVC: NSViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
+    
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
-
-
+    
+    
 }
 

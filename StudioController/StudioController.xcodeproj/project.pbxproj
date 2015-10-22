@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1CE2DBF51BD863A40075067D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF41BD863A40075067D /* AppDelegate.swift */; };
-		1CE2DBF71BD863A40075067D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF61BD863A40075067D /* ViewController.swift */; };
+		1CE2DBF71BD863A40075067D /* StudioControllerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */; };
 		1CE2DBF91BD863A40075067D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF81BD863A40075067D /* Assets.xcassets */; };
 		1CE2DBFC1BD863A40075067D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE2DBFA1BD863A40075067D /* Main.storyboard */; };
 		1CE2DC071BD863A40075067D /* StudioControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC061BD863A40075067D /* StudioControllerTests.swift */; };
 		1CE2DC121BD863A40075067D /* StudioControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC111BD863A40075067D /* StudioControllerUITests.swift */; };
+		1CE2DC221BD868D70075067D /* OutputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC211BD868D70075067D /* OutputVC.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +36,7 @@
 /* Begin PBXFileReference section */
 		1CE2DBF11BD863A40075067D /* StudioController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE2DBF41BD863A40075067D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1CE2DBF61BD863A40075067D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioControllerVC.swift; sourceTree = "<group>"; };
 		1CE2DBF81BD863A40075067D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CE2DBFB1BD863A40075067D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1CE2DBFD1BD863A40075067D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +46,8 @@
 		1CE2DC0D1BD863A40075067D /* StudioControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudioControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE2DC111BD863A40075067D /* StudioControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioControllerUITests.swift; sourceTree = "<group>"; };
 		1CE2DC131BD863A40075067D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CE2DC1F1BD864550075067D /* OLDMainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = OLDMainMenu.nib; sourceTree = "<group>"; };
+		1CE2DC211BD868D70075067D /* OutputVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +99,11 @@
 			isa = PBXGroup;
 			children = (
 				1CE2DBF41BD863A40075067D /* AppDelegate.swift */,
-				1CE2DBF61BD863A40075067D /* ViewController.swift */,
+				1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */,
+				1CE2DC211BD868D70075067D /* OutputVC.swift */,
 				1CE2DBF81BD863A40075067D /* Assets.xcassets */,
 				1CE2DBFA1BD863A40075067D /* Main.storyboard */,
+				1CE2DC1F1BD864550075067D /* OLDMainMenu.nib */,
 				1CE2DBFD1BD863A40075067D /* Info.plist */,
 			);
 			path = StudioController;
@@ -251,7 +256,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CE2DBF71BD863A40075067D /* ViewController.swift in Sources */,
+				1CE2DBF71BD863A40075067D /* StudioControllerVC.swift in Sources */,
+				1CE2DC221BD868D70075067D /* OutputVC.swift in Sources */,
 				1CE2DBF51BD863A40075067D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,7 +341,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -373,7 +379,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};

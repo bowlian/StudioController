@@ -8,10 +8,23 @@
 
 import Cocoa
 
-class StudioControllerVC: NSViewController {
+extension Array {
+    var last: Element {
+        return self[self.endIndex - 1]
+    }
+}
 
+class StudioControllerVC: NSViewController {
+    
+    @IBOutlet var mediaController: NSArrayController!
+    
+    dynamic var dataArray = [Media]()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataArray.append(Media(name: "Hello", path: "TEST"))
     }
 
     override var representedObject: AnyObject? {
@@ -21,18 +34,21 @@ class StudioControllerVC: NSViewController {
     }
 
     @IBAction func btncAddMedia(sender: NSButton) {
-        let openPanel = NSOpenPanel(contentViewController: self)
-        openPanel.beginWithCompletionHandler({(intres) in
-            if intres == NSFileHandlingPanelOKButton {
-                for selFile in openPanel.URLs {
-                    print(selFile)
+        let openPanel = NSOpenPanel()
+        openPanel.runModal()
+        if !openPanel.URLs.isEmpty{
+            for url in openPanel.URLs{
+                mediaController.addObject(Media(name: url.pathComponents!.last, path: url.path!))
                 }
             }
-        })
-    }
+        }
+    
     @IBAction func btncRemoveMedia(sender: NSButton) {
+        if let selectedMedia = mediaController.selectedObjects.first as? Media {
+            mediaController.removeObject(selectedMedia)
+        }
     }
-    @IBAction func btncLoadMedia(sender: NSButton) {
+     func btncLoadMedia(sender: NSButton) {
     }
 
 }

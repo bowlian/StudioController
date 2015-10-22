@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C83311D1BD9110F006AC72E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C83311C1BD9110F006AC72E /* AVKit.framework */; };
 		1CE2DBF51BD863A40075067D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF41BD863A40075067D /* AppDelegate.swift */; };
 		1CE2DBF71BD863A40075067D /* StudioControllerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */; };
 		1CE2DBF91BD863A40075067D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF81BD863A40075067D /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C83311C1BD9110F006AC72E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		1CE2DBF11BD863A40075067D /* StudioController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE2DBF41BD863A40075067D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioControllerVC.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C83311D1BD9110F006AC72E /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +81,7 @@
 		1CE2DBE81BD863A40075067D = {
 			isa = PBXGroup;
 			children = (
+				1C83311C1BD9110F006AC72E /* AVKit.framework */,
 				1CE2DBF31BD863A40075067D /* StudioController */,
 				1CE2DC051BD863A40075067D /* StudioControllerTests */,
 				1CE2DC101BD863A40075067D /* StudioControllerUITests */,
@@ -480,6 +484,7 @@
 				1CE2DC181BD863A40075067D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1CE2DC191BD863A40075067D /* Build configuration list for PBXNativeTarget "StudioControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +493,7 @@
 				1CE2DC1B1BD863A40075067D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1CE2DC1C1BD863A40075067D /* Build configuration list for PBXNativeTarget "StudioControllerUITests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +502,7 @@
 				1CE2DC1E1BD863A40075067D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

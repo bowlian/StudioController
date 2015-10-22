@@ -20,6 +20,20 @@ class StudioControllerVC: NSViewController {
         }
     }
 
+    @IBAction func btncAddMedia(sender: NSButton) {
+        let openPanel = NSOpenPanel(contentViewController: self)
+        openPanel.beginWithCompletionHandler({(intres) in
+            if intres == NSFileHandlingPanelOKButton {
+                for selFile in openPanel.URLs {
+                    print(selFile)
+                }
+            }
+        })
+    }
+    @IBAction func btncRemoveMedia(sender: NSButton) {
+    }
+    @IBAction func btncLoadMedia(sender: NSButton) {
+    }
 
 }
 

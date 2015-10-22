@@ -20,11 +20,8 @@ class StudioControllerVC: NSViewController {
     
     dynamic var dataArray = [Media]()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataArray.append(Media(name: "Hello", path: "TEST"))
     }
 
     override var representedObject: AnyObject? {
@@ -38,14 +35,14 @@ class StudioControllerVC: NSViewController {
         openPanel.runModal()
         if !openPanel.URLs.isEmpty{
             for url in openPanel.URLs{
-                mediaController.addObject(Media(name: url.pathComponents!.last, path: url.path!))
-                }
+                mediaController.addObject(Media(url: url))
             }
         }
+    }
     
     @IBAction func btncRemoveMedia(sender: NSButton) {
-        if let selectedMedia = mediaController.selectedObjects.first as? Media {
-            mediaController.removeObject(selectedMedia)
+        for remMedia in mediaController.selectedObjects {
+            mediaController.removeObject(remMedia)
         }
     }
      func btncLoadMedia(sender: NSButton) {

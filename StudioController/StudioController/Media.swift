@@ -8,17 +8,13 @@
 
 import Foundation
 class Media : NSObject {
-    var name:String
-    var path:String
-    
-    override init() {
-        name = ""
-        path = ""
-        super.init()
+    var url: NSURL
+    var name: String {
+        return url.lastPathComponent!
     }
-    init(name:String,path:String){
-        self.name = name
-        self.path = path
+    
+    init(url: NSURL){
+        self.url = url
         super.init()
     }
     

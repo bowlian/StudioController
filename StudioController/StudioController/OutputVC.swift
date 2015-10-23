@@ -7,11 +7,15 @@
 //
 
 import Cocoa
+import AVKit
+import AVFoundation
 
 class OutputVC: NSViewController {
+    var vid: MPlayerVC!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        vid.chLive(true)
     }
     
     override var representedObject: AnyObject? {
@@ -20,6 +24,11 @@ class OutputVC: NSViewController {
         }
     }
     
-    
+    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+        if let dvc = segue.destinationController as? MPlayerVC {
+            if segue.identifier == "MPVCout" {
+                vid = dvc
+            }
+        }
+    }
 }
-

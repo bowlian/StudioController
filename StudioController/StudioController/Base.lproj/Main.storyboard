@@ -140,8 +140,8 @@
         <!--Window Controller-->
         <scene sceneID="YbN-gK-Oef">
             <objects>
-                <windowController id="MTm-ae-kXo" sceneMemberID="viewController">
-                    <window key="window" title="Display" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
+                <windowController storyboardIdentifier="OutputWC" id="MTm-ae-kXo" sceneMemberID="viewController">
+                    <window key="window" title="Output" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
                         <windowStyleMask key="styleMask" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
                         <rect key="contentRect" x="294" y="294" width="480" height="372"/>
@@ -154,7 +154,7 @@
                 </windowController>
                 <customObject id="Um2-yw-zdP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747" y="247"/>
+            <point key="canvasLocation" x="747" y="243"/>
         </scene>
         <!--OutputVC-->
         <scene sceneID="enr-Y1-dd9">
@@ -164,17 +164,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="384"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <avPlayerView controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="x2b-zU-G3d">
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Af4-BQ-YfJ">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="384"/>
                                 <animations/>
-                            </avPlayerView>
+                                <connections>
+                                    <segue destination="vlg-9i-O2O" kind="embed" identifier="MPVCout" id="FCP-Gt-Kk3"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="x2b-zU-G3d" secondAttribute="trailing" id="11p-s2-fKm"/>
-                            <constraint firstItem="x2b-zU-G3d" firstAttribute="leading" secondItem="sfy-X8-zHT" secondAttribute="leading" id="D3e-sY-LOc"/>
-                            <constraint firstAttribute="bottom" secondItem="x2b-zU-G3d" secondAttribute="bottom" id="KRz-W2-BPB"/>
-                            <constraint firstItem="x2b-zU-G3d" firstAttribute="top" secondItem="sfy-X8-zHT" secondAttribute="top" id="L2K-46-L4t"/>
-                            <constraint firstItem="x2b-zU-G3d" firstAttribute="centerX" secondItem="sfy-X8-zHT" secondAttribute="centerX" id="SuH-7Y-GcG"/>
+                            <constraint firstAttribute="trailing" secondItem="Af4-BQ-YfJ" secondAttribute="trailing" id="Fev-Aq-6ip"/>
+                            <constraint firstAttribute="bottom" secondItem="Af4-BQ-YfJ" secondAttribute="bottom" id="I35-TS-Tir"/>
+                            <constraint firstItem="Af4-BQ-YfJ" firstAttribute="leading" secondItem="sfy-X8-zHT" secondAttribute="leading" id="ufD-t1-fuq"/>
+                            <constraint firstItem="Af4-BQ-YfJ" firstAttribute="top" secondItem="sfy-X8-zHT" secondAttribute="top" id="xiM-MV-wLK"/>
                         </constraints>
                         <animations/>
                     </view>
@@ -191,14 +193,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="515" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <avPlayerView identifier="Preview" controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-4L-wbR">
-                                <rect key="frame" x="16" y="16" width="238" height="178"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="NuX-4L-wbR" secondAttribute="height" multiplier="4:3" id="Je7-CS-Q80"/>
-                                    <constraint firstAttribute="height" constant="178" id="ynJ-fI-Ie5"/>
-                                </constraints>
-                                <animations/>
-                            </avPlayerView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-Kp-rca">
                                 <rect key="frame" x="10" y="444" width="112" height="32"/>
                                 <constraints>
@@ -226,14 +220,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <avPlayerView controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="lF1-4j-6yc">
-                                <rect key="frame" x="262" y="16" width="237" height="178"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="lF1-4j-6yc" secondAttribute="height" multiplier="4:3" id="8d8-bt-0xD"/>
-                                    <constraint firstAttribute="height" constant="178" id="vRi-HV-6k2"/>
-                                </constraints>
-                                <animations/>
-                            </avPlayerView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ou2-pe-k1A">
                                 <rect key="frame" x="126" y="444" width="117" height="32"/>
                                 <constraints>
@@ -333,7 +319,7 @@
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZS-aB-HHj">
                                 <rect key="frame" x="16" y="256" width="483" height="187"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="cdC-Mz-qCO">
-                                    <rect key="frame" x="1" y="23" width="481" height="163"/>
+                                    <rect key="frame" x="1" y="0.0" width="481" height="186"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="1PO-Qr-dhZ" viewBased="YES" id="hmX-yF-hwB">
@@ -415,38 +401,63 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="btncGoLive:" target="XfG-lQ-9wD" id="gYE-4m-XSr"/>
+                                </connections>
                             </button>
+                            <containerView identifier="MPVCprev" translatesAutoresizingMaskIntoConstraints="NO" id="egs-bT-Zxc">
+                                <rect key="frame" x="16" y="16" width="237" height="178"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="178" id="4Ec-bS-aKx"/>
+                                    <constraint firstAttribute="width" secondItem="egs-bT-Zxc" secondAttribute="height" multiplier="4:3" id="mEO-oy-tBl"/>
+                                </constraints>
+                                <animations/>
+                                <connections>
+                                    <segue destination="vlg-9i-O2O" kind="embed" identifier="MPVCprev" id="maL-xF-yJZ"/>
+                                </connections>
+                            </containerView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="JXi-9u-B37">
+                                <rect key="frame" x="262" y="16" width="237" height="178"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="JXi-9u-B37" secondAttribute="height" multiplier="4:3" id="EbA-CP-h1X"/>
+                                    <constraint firstAttribute="height" constant="178" id="pyR-Vg-dDA"/>
+                                </constraints>
+                                <animations/>
+                                <connections>
+                                    <segue destination="vlg-9i-O2O" kind="embed" identifier="MPVClive" id="g1R-jW-nMn"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="lF1-4j-6yc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NuX-4L-wbR" secondAttribute="trailing" constant="8" id="0sA-w1-Ufv"/>
+                            <constraint firstItem="egs-bT-Zxc" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="1EF-r5-D0T"/>
                             <constraint firstAttribute="trailing" secondItem="phy-8v-lfX" secondAttribute="trailing" constant="16" id="2cn-v2-ia7"/>
                             <constraint firstItem="agc-Qn-WfZ" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="4hx-KD-3zr"/>
                             <constraint firstAttribute="trailing" secondItem="uFA-jS-qDp" secondAttribute="trailing" constant="220" id="5De-Gt-Ls7"/>
-                            <constraint firstAttribute="trailing" secondItem="lF1-4j-6yc" secondAttribute="trailing" constant="16" id="6tt-TE-Ify"/>
                             <constraint firstItem="ou2-pe-k1A" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="7OA-4V-q2j"/>
                             <constraint firstItem="Ymc-HN-ri3" firstAttribute="leading" secondItem="qOE-fI-Jf6" secondAttribute="trailing" constant="12" id="AfT-Dv-fuC"/>
                             <constraint firstAttribute="trailing" secondItem="Ymc-HN-ri3" secondAttribute="trailing" constant="16" id="BQe-8a-fli"/>
                             <constraint firstItem="qOE-fI-Jf6" firstAttribute="centerY" secondItem="Ymc-HN-ri3" secondAttribute="centerY" id="Bss-UX-zb8"/>
+                            <constraint firstItem="egs-bT-Zxc" firstAttribute="top" secondItem="Zn9-ay-Bw3" secondAttribute="bottom" constant="8" id="CC3-mz-HSL"/>
                             <constraint firstItem="LvM-Vd-Sma" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="GO1-P1-dzn"/>
+                            <constraint firstAttribute="bottom" secondItem="egs-bT-Zxc" secondAttribute="bottom" constant="16" id="HeR-io-zg1"/>
                             <constraint firstItem="agc-Qn-WfZ" firstAttribute="centerY" secondItem="MgF-Eu-xcs" secondAttribute="centerY" id="Ks1-RM-L5b"/>
-                            <constraint firstItem="NuX-4L-wbR" firstAttribute="top" secondItem="Zn9-ay-Bw3" secondAttribute="bottom" constant="8" id="MGw-Bq-JvQ"/>
                             <constraint firstItem="s0c-Kp-rca" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="NQB-RM-an5"/>
-                            <constraint firstAttribute="bottom" secondItem="NuX-4L-wbR" secondAttribute="bottom" constant="16" id="NXv-A9-GC1"/>
                             <constraint firstItem="MgF-Eu-xcs" firstAttribute="centerY" secondItem="qOE-fI-Jf6" secondAttribute="centerY" id="Ny1-FU-Bf3"/>
                             <constraint firstItem="MgF-Eu-xcs" firstAttribute="leading" secondItem="3eh-pK-R9S" secondAttribute="trailing" constant="12" id="P3X-tu-W3l"/>
-                            <constraint firstItem="NuX-4L-wbR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="Qxe-8U-g4i"/>
+                            <constraint firstItem="JXi-9u-B37" firstAttribute="top" secondItem="uFA-jS-qDp" secondAttribute="bottom" constant="8" id="SLF-mG-YhD"/>
                             <constraint firstItem="s0c-Kp-rca" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="UUl-B1-0Z3"/>
                             <constraint firstItem="phy-8v-lfX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="V0a-My-KUE"/>
+                            <constraint firstAttribute="bottom" secondItem="JXi-9u-B37" secondAttribute="bottom" constant="16" id="XGK-Ps-zNP"/>
                             <constraint firstItem="ou2-pe-k1A" firstAttribute="leading" secondItem="s0c-Kp-rca" secondAttribute="trailing" constant="16" id="Z8h-79-PQ8"/>
                             <constraint firstItem="Zn9-ay-Bw3" firstAttribute="top" secondItem="3eh-pK-R9S" secondAttribute="bottom" constant="8" id="anN-IZ-kaF"/>
                             <constraint firstItem="3eh-pK-R9S" firstAttribute="centerY" secondItem="MgF-Eu-xcs" secondAttribute="centerY" id="bUJ-eT-Wvy"/>
-                            <constraint firstAttribute="bottom" secondItem="lF1-4j-6yc" secondAttribute="bottom" constant="16" id="cTU-Fo-xF4"/>
                             <constraint firstItem="sZS-aB-HHj" firstAttribute="top" secondItem="phy-8v-lfX" secondAttribute="bottom" constant="8" id="dEd-xp-Gip"/>
                             <constraint firstItem="3eh-pK-R9S" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="es4-cY-cdV"/>
+                            <constraint firstAttribute="trailing" secondItem="JXi-9u-B37" secondAttribute="trailing" constant="16" id="j72-Nd-0sY"/>
+                            <constraint firstItem="JXi-9u-B37" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="egs-bT-Zxc" secondAttribute="trailing" constant="8" id="jqs-aJ-jhQ"/>
                             <constraint firstItem="sZS-aB-HHj" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="leo-GZ-qYT"/>
                             <constraint firstItem="phy-8v-lfX" firstAttribute="leading" secondItem="LvM-Vd-Sma" secondAttribute="trailing" constant="16" id="nWJ-6Q-fWX"/>
                             <constraint firstItem="Zn9-ay-Bw3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="oIE-X6-xlg"/>
-                            <constraint firstItem="lF1-4j-6yc" firstAttribute="top" secondItem="uFA-jS-qDp" secondAttribute="bottom" constant="8" id="q4u-2j-Eh3"/>
                             <constraint firstItem="3eh-pK-R9S" firstAttribute="top" secondItem="sZS-aB-HHj" secondAttribute="bottom" constant="8" id="rIT-lv-igp"/>
                             <constraint firstAttribute="trailing" secondItem="sZS-aB-HHj" secondAttribute="trailing" constant="16" id="tKz-eB-zpo"/>
                         </constraints>
@@ -463,5 +474,56 @@
             </objects>
             <point key="canvasLocation" x="86.5" y="1011"/>
         </scene>
+        <!--MPlayer-->
+        <scene sceneID="YdM-rN-ph9">
+            <objects>
+                <viewController title="MPlayer" id="vlg-9i-O2O" customClass="MPlayerVC" customModule="StudioController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="vAT-es-4Kn">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <avPlayerView controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="LOn-w2-QzC" customClass="VPlayerView" customModule="StudioController" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <animations/>
+                            </avPlayerView>
+                            <avPlayerView hidden="YES" controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="YqD-GV-ymd" customClass="VPlayerView" customModule="StudioController" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <animations/>
+                            </avPlayerView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pHn-8L-5DR">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="vox-WG-Jaf"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="pHn-8L-5DR" secondAttribute="trailing" id="4H6-4C-xFy"/>
+                            <constraint firstItem="YqD-GV-ymd" firstAttribute="top" secondItem="vAT-es-4Kn" secondAttribute="top" id="CSk-dS-SlJ"/>
+                            <constraint firstAttribute="trailing" secondItem="LOn-w2-QzC" secondAttribute="trailing" id="Nlw-gz-xyU"/>
+                            <constraint firstAttribute="bottom" secondItem="pHn-8L-5DR" secondAttribute="bottom" id="O6j-2G-39b"/>
+                            <constraint firstItem="YqD-GV-ymd" firstAttribute="leading" secondItem="vAT-es-4Kn" secondAttribute="leading" id="Zex-5n-mRw"/>
+                            <constraint firstAttribute="trailing" secondItem="YqD-GV-ymd" secondAttribute="trailing" id="bEB-SM-Z2F"/>
+                            <constraint firstItem="LOn-w2-QzC" firstAttribute="leading" secondItem="vAT-es-4Kn" secondAttribute="leading" id="fRH-fI-Ia5"/>
+                            <constraint firstItem="pHn-8L-5DR" firstAttribute="top" secondItem="vAT-es-4Kn" secondAttribute="top" id="hTH-du-L2e"/>
+                            <constraint firstAttribute="bottom" secondItem="LOn-w2-QzC" secondAttribute="bottom" id="kVU-zu-caM"/>
+                            <constraint firstItem="pHn-8L-5DR" firstAttribute="leading" secondItem="vAT-es-4Kn" secondAttribute="leading" id="oKu-nU-lLG"/>
+                            <constraint firstAttribute="bottom" secondItem="YqD-GV-ymd" secondAttribute="bottom" id="ug3-2s-Tt7"/>
+                            <constraint firstItem="LOn-w2-QzC" firstAttribute="top" secondItem="vAT-es-4Kn" secondAttribute="top" id="xNl-oc-4Kz"/>
+                        </constraints>
+                        <animations/>
+                    </view>
+                    <connections>
+                        <outlet property="imgView" destination="pHn-8L-5DR" id="o1C-ie-4sQ"/>
+                        <outlet property="playerViewA" destination="LOn-w2-QzC" id="3ac-A0-mlH"/>
+                        <outlet property="playerViewB" destination="YqD-GV-ymd" id="9mS-oO-cQT"/>
+                    </connections>
+                </viewController>
+                <customObject id="Xsc-GN-vGF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="87" y="1669"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="maL-xF-yJZ"/>
+    </inferredMetricsTieBreakers>
 </document>

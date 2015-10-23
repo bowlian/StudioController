@@ -256,7 +256,7 @@
                                     <constraint firstAttribute="width" constant="100" id="abM-bt-B9M"/>
                                 </constraints>
                                 <animations/>
-                                <buttonCell key="cell" type="push" title="Load Media" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="CS3-HH-0H8">
+                                <buttonCell key="cell" type="push" title="Queue Media" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="CS3-HH-0H8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -283,9 +283,9 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3eh-pK-R9S">
-                                <rect key="frame" x="10" y="220" width="112" height="32"/>
+                                <rect key="frame" x="10" y="220" width="82" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Ws8-bu-rYa"/>
+                                    <constraint firstAttribute="width" constant="70" id="Ws8-bu-rYa"/>
                                     <constraint firstAttribute="height" constant="21" id="rvn-yp-M7y"/>
                                 </constraints>
                                 <animations/>
@@ -295,10 +295,10 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MgF-Eu-xcs">
-                                <rect key="frame" x="122" y="220" width="112" height="32"/>
+                                <rect key="frame" x="92" y="220" width="82" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="jMC-qR-ogk"/>
-                                    <constraint firstAttribute="width" constant="100" id="msz-Tw-Yii"/>
+                                    <constraint firstAttribute="width" constant="70" id="msz-Tw-Yii"/>
                                 </constraints>
                                 <animations/>
                                 <buttonCell key="cell" type="push" title="Pause" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="ivG-fW-M7m">
@@ -307,9 +307,9 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qOE-fI-Jf6">
-                                <rect key="frame" x="277" y="220" width="112" height="32"/>
+                                <rect key="frame" x="341" y="220" width="82" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Qs3-fS-mLp"/>
+                                    <constraint firstAttribute="width" constant="70" id="Qs3-fS-mLp"/>
                                     <constraint firstAttribute="height" constant="21" id="m2w-tQ-lRx"/>
                                 </constraints>
                                 <animations/>
@@ -319,9 +319,9 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ymc-HN-ri3">
-                                <rect key="frame" x="393" y="220" width="112" height="32"/>
+                                <rect key="frame" x="423" y="220" width="82" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="47r-9Y-mD4"/>
+                                    <constraint firstAttribute="width" constant="70" id="47r-9Y-mD4"/>
                                     <constraint firstAttribute="height" constant="21" id="nrM-jM-BvN"/>
                                 </constraints>
                                 <animations/>
@@ -404,17 +404,31 @@
                                     <animations/>
                                 </tableHeaderView>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agc-Qn-WfZ">
+                                <rect key="frame" x="202" y="220" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="QI6-oz-XbQ"/>
+                                    <constraint firstAttribute="height" constant="21" id="XQy-Q6-E1N"/>
+                                </constraints>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Go Live" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="Kah-lC-pP0">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="lF1-4j-6yc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NuX-4L-wbR" secondAttribute="trailing" constant="8" id="0sA-w1-Ufv"/>
                             <constraint firstAttribute="trailing" secondItem="phy-8v-lfX" secondAttribute="trailing" constant="16" id="2cn-v2-ia7"/>
+                            <constraint firstItem="agc-Qn-WfZ" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="4hx-KD-3zr"/>
                             <constraint firstAttribute="trailing" secondItem="uFA-jS-qDp" secondAttribute="trailing" constant="220" id="5De-Gt-Ls7"/>
                             <constraint firstAttribute="trailing" secondItem="lF1-4j-6yc" secondAttribute="trailing" constant="16" id="6tt-TE-Ify"/>
                             <constraint firstItem="ou2-pe-k1A" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="7OA-4V-q2j"/>
-                            <constraint firstItem="Ymc-HN-ri3" firstAttribute="leading" secondItem="qOE-fI-Jf6" secondAttribute="trailing" constant="16" id="AfT-Dv-fuC"/>
+                            <constraint firstItem="Ymc-HN-ri3" firstAttribute="leading" secondItem="qOE-fI-Jf6" secondAttribute="trailing" constant="12" id="AfT-Dv-fuC"/>
                             <constraint firstAttribute="trailing" secondItem="Ymc-HN-ri3" secondAttribute="trailing" constant="16" id="BQe-8a-fli"/>
                             <constraint firstItem="qOE-fI-Jf6" firstAttribute="centerY" secondItem="Ymc-HN-ri3" secondAttribute="centerY" id="Bss-UX-zb8"/>
                             <constraint firstItem="LvM-Vd-Sma" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="GO1-P1-dzn"/>
+                            <constraint firstItem="agc-Qn-WfZ" firstAttribute="centerY" secondItem="MgF-Eu-xcs" secondAttribute="centerY" id="Ks1-RM-L5b"/>
                             <constraint firstItem="NuX-4L-wbR" firstAttribute="top" secondItem="Zn9-ay-Bw3" secondAttribute="bottom" constant="8" id="MGw-Bq-JvQ"/>
                             <constraint firstItem="s0c-Kp-rca" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="NQB-RM-an5"/>
                             <constraint firstAttribute="bottom" secondItem="NuX-4L-wbR" secondAttribute="bottom" constant="16" id="NXv-A9-GC1"/>
@@ -439,6 +453,8 @@
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="btnFetchWeather" destination="LvM-Vd-Sma" id="Ac7-hq-wUz"/>
+                        <outlet property="btnQueue" destination="phy-8v-lfX" id="zsV-dl-45Z"/>
                         <outlet property="btnRemoveMedia" destination="ou2-pe-k1A" id="lf8-DJ-IC6"/>
                         <outlet property="tableView" destination="hmX-yF-hwB" id="719-s6-Yah"/>
                     </connections>

@@ -14,8 +14,8 @@
 		1CE2DBFC1BD863A40075067D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE2DBFA1BD863A40075067D /* Main.storyboard */; };
 		1CE2DC071BD863A40075067D /* StudioControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC061BD863A40075067D /* StudioControllerTests.swift */; };
 		1CE2DC121BD863A40075067D /* StudioControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC111BD863A40075067D /* StudioControllerUITests.swift */; };
-		1CE2DC221BD868D70075067D /* OutputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC211BD868D70075067D /* OutputVC.swift */; settings = {ASSET_TAGS = (); }; };
-		3C11C51A1BD98FBA00EA0356 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C11C5191BD98FBA00EA0356 /* Media.swift */; settings = {ASSET_TAGS = (); }; };
+		1CE2DC221BD868D70075067D /* OutputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DC211BD868D70075067D /* OutputVC.swift */; };
+		3C11C51A1BD98FBA00EA0356 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C11C5191BD98FBA00EA0356 /* Media.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,6 @@
 		1CE2DC0D1BD863A40075067D /* StudioControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudioControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE2DC111BD863A40075067D /* StudioControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioControllerUITests.swift; sourceTree = "<group>"; };
 		1CE2DC131BD863A40075067D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1CE2DC1F1BD864550075067D /* OLDMainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = OLDMainMenu.nib; sourceTree = "<group>"; };
 		1CE2DC211BD868D70075067D /* OutputVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputVC.swift; sourceTree = "<group>"; };
 		3C11C5191BD98FBA00EA0356 /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,7 +108,6 @@
 				1CE2DC211BD868D70075067D /* OutputVC.swift */,
 				1CE2DBF81BD863A40075067D /* Assets.xcassets */,
 				1CE2DBFA1BD863A40075067D /* Main.storyboard */,
-				1CE2DC1F1BD864550075067D /* OLDMainMenu.nib */,
 				1CE2DBFD1BD863A40075067D /* Info.plist */,
 				3C11C5191BD98FBA00EA0356 /* Media.swift */,
 			);

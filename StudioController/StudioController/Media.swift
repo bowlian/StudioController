@@ -10,54 +10,24 @@ import Foundation
 import AVKit
 import AVFoundation
 
-class Media : NSObject {
+class Media: NSObject {
     let url: NSURL
-    var playerItem: AVPlayerItem? {
-        if filetype == .video || filetype == .audio {
-            return AVPlayerItem(URL: url)
-        } else {
-            return nil
-        }
-    }
     var name: String {
         return url.lastPathComponent!
     }
-    var filetype: Filetype {
-        let p = url.pathExtension?.lowercaseString
-        if p == "mpg" || p == "mpeg" || p == "mov" || p == "mp4" || p == "flv" {
-            return .video
-        } else if p == "jpg" || p == "jpeg" || p == "tif" || p == "tiff" || p == "png" || p == "gif" {
-            return .photo
-        } else if p == "ogg" || p == "m4a" || p == "wav" || p == "mp3" {
-            return .audio
-        } else {
-            return .nonMedia
-        }
+    let image: NSImage?
+    var playerItem: AVPlayerItem {
+        return AVPlayerItem(URL: url)
     }
     
     init(url: NSURL){
         self.url = url
+        image = NSImage(contentsOfURL: url) //Only works if valid image
         super.init()
-    }
-    
-    enum Filetype {
-        case photo
-        case video
-        case audio
-        case nonMedia
-    }
-    
-    var image: NSImage? {
-        if filetype == .photo {
-            return NSImage(contentsOfURL: url)
-        } else {
-            return nil
-        }
     }
 }
 
 class VPlayer: AVPlayer {
-    
     func changeMedia(newMedia: Media?) {
         if currentItem != newMedia?.playerItem {
             replaceCurrentItemWithPlayerItem(newMedia?.playerItem)
@@ -66,13 +36,3 @@ class VPlayer: AVPlayer {
     }
 }
 
-class VPlayerView: AVPlayerView {
-    var isLive: Bool!
-    func chLive(isLivePlayer: Bool) {
-        isLive = isLivePlayer
-        upPlayer()
-    }
-    func upPlayer() {
-        self.player = MPlayerVC.out(isLive, playerView: self)
-    }
-}

@@ -141,8 +141,8 @@
         <scene sceneID="YbN-gK-Oef">
             <objects>
                 <windowController storyboardIdentifier="OutputWC" id="MTm-ae-kXo" sceneMemberID="viewController">
-                    <window key="window" title="Output" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
-                        <windowStyleMask key="styleMask" resizable="YES" fullSizeContentView="YES"/>
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
+                        <windowStyleMask key="styleMask" titled="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
                         <rect key="contentRect" x="294" y="294" width="480" height="372"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
@@ -246,9 +246,6 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="btncLoadMedia:" target="XfG-lQ-9wD" id="HmR-VT-rvU"/>
-                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zn9-ay-Bw3">
                                 <rect key="frame" x="14" y="202" width="56" height="17"/>
@@ -482,11 +479,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <avPlayerView controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="LOn-w2-QzC" customClass="VPlayerView" customModule="StudioController" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                                <animations/>
-                            </avPlayerView>
-                            <avPlayerView hidden="YES" controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="YqD-GV-ymd" customClass="VPlayerView" customModule="StudioController" customModuleProvider="target">
+                            <avPlayerView controlsStyle="none" translatesAutoresizingMaskIntoConstraints="NO" id="LOn-w2-QzC">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                 <animations/>
                             </avPlayerView>
@@ -498,24 +491,19 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="pHn-8L-5DR" secondAttribute="trailing" id="4H6-4C-xFy"/>
-                            <constraint firstItem="YqD-GV-ymd" firstAttribute="top" secondItem="vAT-es-4Kn" secondAttribute="top" id="CSk-dS-SlJ"/>
                             <constraint firstAttribute="trailing" secondItem="LOn-w2-QzC" secondAttribute="trailing" id="Nlw-gz-xyU"/>
                             <constraint firstAttribute="bottom" secondItem="pHn-8L-5DR" secondAttribute="bottom" id="O6j-2G-39b"/>
-                            <constraint firstItem="YqD-GV-ymd" firstAttribute="leading" secondItem="vAT-es-4Kn" secondAttribute="leading" id="Zex-5n-mRw"/>
-                            <constraint firstAttribute="trailing" secondItem="YqD-GV-ymd" secondAttribute="trailing" id="bEB-SM-Z2F"/>
                             <constraint firstItem="LOn-w2-QzC" firstAttribute="leading" secondItem="vAT-es-4Kn" secondAttribute="leading" id="fRH-fI-Ia5"/>
                             <constraint firstItem="pHn-8L-5DR" firstAttribute="top" secondItem="vAT-es-4Kn" secondAttribute="top" id="hTH-du-L2e"/>
                             <constraint firstAttribute="bottom" secondItem="LOn-w2-QzC" secondAttribute="bottom" id="kVU-zu-caM"/>
                             <constraint firstItem="pHn-8L-5DR" firstAttribute="leading" secondItem="vAT-es-4Kn" secondAttribute="leading" id="oKu-nU-lLG"/>
-                            <constraint firstAttribute="bottom" secondItem="YqD-GV-ymd" secondAttribute="bottom" id="ug3-2s-Tt7"/>
                             <constraint firstItem="LOn-w2-QzC" firstAttribute="top" secondItem="vAT-es-4Kn" secondAttribute="top" id="xNl-oc-4Kz"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
                         <outlet property="imgView" destination="pHn-8L-5DR" id="o1C-ie-4sQ"/>
-                        <outlet property="playerViewA" destination="LOn-w2-QzC" id="3ac-A0-mlH"/>
-                        <outlet property="playerViewB" destination="YqD-GV-ymd" id="9mS-oO-cQT"/>
+                        <outlet property="playerView" destination="LOn-w2-QzC" id="pxz-4I-yeX"/>
                     </connections>
                 </viewController>
                 <customObject id="Xsc-GN-vGF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -524,6 +512,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="maL-xF-yJZ"/>
+        <segue reference="FCP-Gt-Kk3"/>
     </inferredMetricsTieBreakers>
 </document>

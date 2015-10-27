@@ -10,12 +10,6 @@ import Cocoa
 import AVFoundation
 import AVKit
 
-extension Array {
-    var last: Element {
-        return self[self.endIndex - 1]
-    }
-}
-
 class StudioControllerVC: NSViewController {
     
     var prevPlayerVC: MPlayerVC!
@@ -58,7 +52,7 @@ class StudioControllerVC: NSViewController {
     func upSelRow() {
         btnRemoveMedia.enabled = selectedRow != nil
         btnQueue.enabled = selectedRow != nil
-        prevPlayerVC.changeMedia(selectedMedia)
+        MPlayerVC.chMedia(selectedMedia, live: false)
     }
 
     @IBAction func btncAddMedia(sender: NSButton) {
@@ -145,81 +139,64 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
 
 class MPlayerVC: NSViewController {
     @IBOutlet weak var imgView: NSImageView!
-    @IBOutlet private weak var playerViewA: VPlayerView!
-    @IBOutlet weak var playerViewB: VPlayerView!
+    @IBOutlet private weak var playerView: AVPlayerView!
     
-    private static var players: [Bool: MPlayerVC!] = [false: nil, true: nil]
+    //Static variables
+    private static var insts = [MPlayerVC]()
+    private static var players: [Bool: VPlayer] = [false: VPlayer(), true: VPlayer()]
+    private static var medias: [Bool: Media?] = [false: nil, true: nil]
     private static var livePli: Bool = true
-    static var outputs = [VPlayerView]()
     
-    static func out(live: Bool, playerView: VPlayerView) -> VPlayer? {
-        if !MPlayerVC.outputs.contains(playerView) {
-            MPlayerVC.outputs.append(playerView)
+    private static func outPlayer(mpvc: MPlayerVC) -> VPlayer {
+        if !insts.contains(mpvc) {
+            insts.append(mpvc)
         }
-        if let gotPlayer = MPlayerVC.players[live != livePli] {
-            return gotPlayer.shownPlayer?.player as? VPlayer
-        }
-        return nil
+        return players[mpvc.isLive]!
     }
+    
     static func swapLive() {
         livePli = !livePli
-        for output in outputs {
-            output.upPlayer()
+        upPlayers()
+    }
+    
+    private static func upPlayers() {
+        for mpvc in insts {
+            mpvc.changeMedia(medias[mpvc.isLive != livePli]!)
         }
     }
     
-    private var isPlayerA = true
+    static func chMedia(newMedia: Media?, live: Bool) {
+        medias[live != livePli] = newMedia
+        upPlayers()
+    }
+    
+    //Instance variables
+    private var _isLive: Bool = true
     private var cmedia: Media?
-    private var viewIsLoaded: Bool {
-        return playerViewA != nil && playerViewB != nil
-    }
-    private var shownPlayer: VPlayerView? {
-        if !viewIsLoaded {
-            return nil
-        }
-        if isPlayerA {
-            return playerViewA
-        } else {
-            return playerViewB
-        }
-    }
-    private var hiddenPlayer: VPlayerView {
-        if isPlayerA {
-            return playerViewB
-        } else {
-            return playerViewA
-        }
-    }
-    var player: VPlayer? {
-        return shownPlayer?.player as? VPlayer
+    
+    var isLive: Bool {
+        return _isLive
     }
     
-    private func swapPlayers() {
-        isPlayerA = !isPlayerA
-    }
-    private func upPlayers() {
-        let isPhoto = cmedia?.filetype == Media.Filetype.photo
-        playerViewA.hidden = !isPlayerA || isPhoto
-        playerViewB.hidden = isPlayerA || isPhoto
-        imgView.hidden = !isPhoto
+    func chLive(isLive: Bool) {
+        _isLive = isLive
+        playerView.player = MPlayerVC.outPlayer(self)
     }
     
-    func changeMedia(newMedia: Media?) {
-        cmedia = newMedia
-        if let img = newMedia?.image {
-            imgView.image = img
-        } else if let playerItem = newMedia?.playerItem {
-            if let vplaye = shownPlayer?.player as? VPlayer {
-                vplaye.changeMedia(newMedia)
+    private func changeMedia(newMedia: Media?) {
+        if cmedia != newMedia {
+            cmedia = newMedia
+            imgView.image = newMedia?.image
+            let isImg = imgView.image != nil
+            imgView.hidden = !isImg
+            playerView.hidden = isImg
+            if !isImg {
+                if let pvplayer = playerView.player as? VPlayer {
+                    print(newMedia?.url)
+                    pvplayer.changeMedia(newMedia)
+                }
             }
         }
-        upPlayers()
-    }
-    
-    func chLive(live: Bool) {
-        hiddenPlayer.chLive(live)
-        swapPlayers()
-        upPlayers()
     }
 }
 

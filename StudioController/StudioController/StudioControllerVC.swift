@@ -18,11 +18,10 @@ class StudioControllerVC: NSViewController {
     @IBOutlet weak var btnFetchWeather: NSButton!
     @IBOutlet weak var btnRemoveMedia: NSButton!
     @IBOutlet weak var tableView: NSTableView!
-    var medias = [Media]()
     
     var selectedRow: Int? {
         let selRow = tableView.selectedRow
-        if selRow >= 0 && selRow < medias.count {
+        if selRow >= 0 && selRow < Media.medias.count {
             return selRow
         } else {    //If no row is selected
             return nil
@@ -30,7 +29,7 @@ class StudioControllerVC: NSViewController {
     }
     var selectedMedia: Media? {
         if let selRow = selectedRow {
-            return medias[selRow]
+            return Media.medias[selRow]
         } else {
             return nil
         }
@@ -59,14 +58,14 @@ class StudioControllerVC: NSViewController {
         let openPanel = NSOpenPanel()
         openPanel.runModal()
         for url in openPanel.URLs {
-            medias.append(Media(url: url))
-            tableView.insertRowsAtIndexes(NSIndexSet(index: medias.count - 1), withAnimation: .SlideLeft)
+            Media.medias.append(Media(url: url))
+            tableView.insertRowsAtIndexes(NSIndexSet(index: Media.medias.count - 1), withAnimation: .SlideLeft)
         }
     }
     
     @IBAction func btncRemoveMedia(sender: NSButton) {
         if let selRow = selectedRow {
-            medias.removeAtIndex(selRow)
+            Media.medias.removeAtIndex(selRow)
             tableView.removeRowsAtIndexes(NSIndexSet(index: selRow), withAnimation: .SlideLeft)
         }
     }
@@ -88,12 +87,12 @@ class StudioControllerVC: NSViewController {
 
 extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return medias.count
+        return Media.medias.count
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cellView: NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as! NSTableCellView
-        let media = medias[row]
+        let media = Media.medias[row]
         switch tableColumn!.identifier {
         case "NameCol":
             cellView.textField!.stringValue = media.name
@@ -122,9 +121,9 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
         if let ddat = info.draggingPasteboard().dataForType(NSStringPboardType),
             rowIndexes = NSKeyedUnarchiver.unarchiveObjectWithData(ddat) as? NSIndexSet {
-                let dmedia = medias[rowIndexes.firstIndex]
-                medias.removeAtIndex(rowIndexes.firstIndex)
-                medias.insert(dmedia, atIndex: row)
+                let dmedia = Media.medias[rowIndexes.firstIndex]
+                Media.medias.removeAtIndex(rowIndexes.firstIndex)
+                Media.medias.insert(dmedia, atIndex: row)
                 tableView.reloadData()
                 return true
         }
@@ -132,7 +131,6 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {
-        print("Selected row = \(selectedRow)")
         upSelRow()
     }
 }
@@ -192,7 +190,6 @@ class MPlayerVC: NSViewController {
             playerView.hidden = isImg
             if !isImg {
                 if let pvplayer = playerView.player as? VPlayer {
-                    print(newMedia?.url)
                     pvplayer.changeMedia(newMedia)
                 }
             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C6929AD1BE16D6700800F3D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6929AC1BE16D6700800F3D /* Data.swift */; };
 		1C83311D1BD9110F006AC72E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C83311C1BD9110F006AC72E /* AVKit.framework */; };
 		1CE2DBF51BD863A40075067D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF41BD863A40075067D /* AppDelegate.swift */; };
 		1CE2DBF71BD863A40075067D /* StudioControllerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C6929AC1BE16D6700800F3D /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		1C83311C1BD9110F006AC72E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		1CE2DBF11BD863A40075067D /* StudioController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE2DBF41BD863A40075067D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				1CE2DBFA1BD863A40075067D /* Main.storyboard */,
 				1CE2DBFD1BD863A40075067D /* Info.plist */,
 				3C11C5191BD98FBA00EA0356 /* Media.swift */,
+				1C6929AC1BE16D6700800F3D /* Data.swift */,
 			);
 			path = StudioController;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CE2DBF71BD863A40075067D /* StudioControllerVC.swift in Sources */,
+				1C6929AD1BE16D6700800F3D /* Data.swift in Sources */,
 				1CE2DC221BD868D70075067D /* OutputVC.swift in Sources */,
 				3C11C51A1BD98FBA00EA0356 /* Media.swift in Sources */,
 				1CE2DBF51BD863A40075067D /* AppDelegate.swift in Sources */,

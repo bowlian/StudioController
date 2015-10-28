@@ -142,7 +142,7 @@
             <objects>
                 <windowController storyboardIdentifier="OutputWC" id="MTm-ae-kXo" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
-                        <windowStyleMask key="styleMask" titled="YES" resizable="YES" fullSizeContentView="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
                         <rect key="contentRect" x="294" y="294" width="480" height="372"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
@@ -483,7 +483,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                 <animations/>
                             </avPlayerView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pHn-8L-5DR">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pHn-8L-5DR">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="vox-WG-Jaf"/>

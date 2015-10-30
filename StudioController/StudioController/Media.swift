@@ -16,15 +16,21 @@ class Media: NSObject, NSCoding {
         return url.lastPathComponent!
     }
     let image: NSImage?
+    var isImg: Bool {
+        return image != nil
+    }
     private var _lastPlayerItem: AVPlayerItem?
     var lastPlayerItem: AVPlayerItem? {
         return _lastPlayerItem
     }
-    func newPlayerItem() -> AVPlayerItem {
-        let newPI = AVPlayerItem(URL: url)
-        _time = _lastPlayerItem?.currentTime()
-        _lastPlayerItem = newPI
-        return newPI
+    func newPlayerItem() -> AVPlayerItem? {
+        if !isImg {
+            let newPI = AVPlayerItem(URL: url)
+            _time = _lastPlayerItem?.currentTime()
+            _lastPlayerItem = newPI
+            return newPI
+        }
+        return nil
     }
     
     init(url: NSURL){
@@ -50,6 +56,13 @@ class Media: NSObject, NSCoding {
         coder.encodeObject(self.url, forKey: "url")
     }
     
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let obj = object {
+            return obj.url == self.url
+        }
+        return false
+    }
+    
     //Array of all medias, with auto-save
     private static var _medias: [Media]?
     static var medias: [Media] {
@@ -68,13 +81,30 @@ class Media: NSObject, NSCoding {
             File.dset(.mediaList, _medias)
         }
     }
+    static func addMedia(newMedia: Media, index: Int? = nil, tableView: NSTableView? = nil) {
+        if !medias.contains(newMedia) { //Prevent duplicates
+            var insertIndSet: NSIndexSet?
+            if let ind = index {
+                if ind < medias.count {
+                    insertIndSet = NSIndexSet(index: ind)
+                    medias.insert(newMedia, atIndex: ind)
+                }
+            }
+            if insertIndSet == nil {
+                medias.append(newMedia)
+                insertIndSet = NSIndexSet(index: medias.count - 1)
+            }
+            if let tableVie = tableView {
+                tableVie.insertRowsAtIndexes(insertIndSet!, withAnimation: .EffectFade)
+            }
+        }
+    }
 }
 
 class VPlayer: AVPlayer {
     func changeMedia(newMedia: Media?) {
         if currentItem != newMedia?.lastPlayerItem || newMedia?.lastPlayerItem == nil {
             replaceCurrentItemWithPlayerItem(newMedia?.newPlayerItem())
-            print("New playerItem, seeking to \(newMedia?.time?.seconds)")
             if let seekTime = newMedia?.time {
                 seekToTime(seekTime)
             }

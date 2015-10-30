@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1C6929AD1BE16D6700800F3D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6929AC1BE16D6700800F3D /* Data.swift */; };
 		1C83311D1BD9110F006AC72E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C83311C1BD9110F006AC72E /* AVKit.framework */; };
+		1CCE36061BE2EE0000515E1C /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCE36051BE2EE0000515E1C /* Sparkle.framework */; };
+		1CCE36071BE2EE0000515E1C /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCE36051BE2EE0000515E1C /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1CE2DBF51BD863A40075067D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF41BD863A40075067D /* AppDelegate.swift */; };
 		1CE2DBF71BD863A40075067D /* StudioControllerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */; };
 		1CE2DBF91BD863A40075067D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CE2DBF81BD863A40075067D /* Assets.xcassets */; };
@@ -36,9 +38,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1CCE36081BE2EE0000515E1C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1CCE36071BE2EE0000515E1C /* Sparkle.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1C6929AC1BE16D6700800F3D /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		1C83311C1BD9110F006AC72E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		1CCE36051BE2EE0000515E1C /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1CE2DBF11BD863A40075067D /* StudioController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE2DBF41BD863A40075067D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CE2DBF61BD863A40075067D /* StudioControllerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioControllerVC.swift; sourceTree = "<group>"; };
@@ -61,6 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C83311D1BD9110F006AC72E /* AVKit.framework in Frameworks */,
+				1CCE36061BE2EE0000515E1C /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +102,7 @@
 		1CE2DBE81BD863A40075067D = {
 			isa = PBXGroup;
 			children = (
+				1CCE36051BE2EE0000515E1C /* Sparkle.framework */,
 				1C83311C1BD9110F006AC72E /* AVKit.framework */,
 				1CE2DBF31BD863A40075067D /* StudioController */,
 				1CE2DC051BD863A40075067D /* StudioControllerTests */,
@@ -145,6 +164,7 @@
 				1CE2DBED1BD863A40075067D /* Sources */,
 				1CE2DBEE1BD863A40075067D /* Frameworks */,
 				1CE2DBEF1BD863A40075067D /* Resources */,
+				1CCE36081BE2EE0000515E1C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,6 +222,7 @@
 				TargetAttributes = {
 					1CE2DBF01BD863A40075067D = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = M8B59A97XZ;
 					};
 					1CE2DC011BD863A40075067D = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -399,7 +420,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = StudioController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bradztechbuzz.StudioController;
@@ -411,7 +437,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = StudioController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bradztechbuzz.StudioController;

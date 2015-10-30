@@ -14,7 +14,6 @@ class StudioControllerVC: NSViewController {
     
     var prevPlayerVC: MPlayerVC!
     var livePlayerVC: MPlayerVC!
-    @IBOutlet weak var btnQueue: NSButton!
     @IBOutlet weak var btnFetchWeather: NSButton!
     @IBOutlet weak var btnRemoveMedia: NSButton!
     @IBOutlet weak var tableView: NSTableView!
@@ -39,7 +38,7 @@ class StudioControllerVC: NSViewController {
         super.viewDidLoad()
         tableView.setDelegate(self)
         tableView.setDataSource(self)
-        tableView.registerForDraggedTypes([NSStringPboardType])
+        tableView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
     }
     
     override func viewDidAppear() {
@@ -50,7 +49,6 @@ class StudioControllerVC: NSViewController {
     
     func upSelRow() {
         btnRemoveMedia.enabled = selectedRow != nil
-        btnQueue.enabled = selectedRow != nil
         MPlayerVC.chMedia(selectedMedia, live: false)
     }
 
@@ -58,20 +56,25 @@ class StudioControllerVC: NSViewController {
         let openPanel = NSOpenPanel()
         openPanel.runModal()
         for url in openPanel.URLs {
-            Media.medias.append(Media(url: url))
-            tableView.insertRowsAtIndexes(NSIndexSet(index: Media.medias.count - 1), withAnimation: .SlideLeft)
+            Media.addMedia(Media(url: url), tableView: tableView)
         }
     }
     
     @IBAction func btncRemoveMedia(sender: NSButton) {
         if let selRow = selectedRow {
             Media.medias.removeAtIndex(selRow)
-            tableView.removeRowsAtIndexes(NSIndexSet(index: selRow), withAnimation: .SlideLeft)
+            tableView.removeRowsAtIndexes(NSIndexSet(index: selRow), withAnimation: .EffectFade)
         }
     }
     
     @IBAction func btncGoLive(sender: NSButton) {
         MPlayerVC.swapLive()
+    }
+    
+    @IBAction func btncFetchWeather(sender: NSButton) {
+        let nyialert = NSAlert()
+        nyialert.messageText = "Not yet implemented! This feature will automatically download the most recent weather images and add them to the list."
+        nyialert.runModal()
     }
 
     override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
@@ -111,23 +114,36 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
-        if dropOperation == .Above {
-            return .Move
-        } else {
-            return .Every
+        let durls = info.draggingPasteboard().readObjectsForClasses([NSURL.self], options: [NSPasteboardURLReadingFileURLsOnlyKey: true])
+        if durls?.count > 0 { //Dragging file from Finder
+            return .Copy
+        } else { //Dragging existing row
+            if dropOperation == .Above {
+                return .Move
+            } else {
+                return .Every
+            }
         }
     }
     
     func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
-        if let ddat = info.draggingPasteboard().dataForType(NSStringPboardType),
-            rowIndexes = NSKeyedUnarchiver.unarchiveObjectWithData(ddat) as? NSIndexSet {
-                let dmedia = Media.medias[rowIndexes.firstIndex]
-                Media.medias.removeAtIndex(rowIndexes.firstIndex)
-                Media.medias.insert(dmedia, atIndex: row)
-                tableView.reloadData()
-                return true
+        var newMedias = [Media]()
+        let durls = info.draggingPasteboard().readObjectsForClasses([NSURL.self], options: [NSPasteboardURLReadingFileURLsOnlyKey: true]) as? [NSURL]
+        if durls?.count > 0 {
+            for durl in durls! {
+                let newMedi = Media(url: durl)
+                newMedias.append(newMedi)
+            }
+        } else if let ddat = info.draggingPasteboard().dataForType(NSStringPboardType),
+        rowIndexes = NSKeyedUnarchiver.unarchiveObjectWithData(ddat) as? NSIndexSet {
+            newMedias.append(Media.medias[rowIndexes.firstIndex])
+            Media.medias.removeAtIndex(rowIndexes.firstIndex)
+            tableView.removeRowsAtIndexes(NSIndexSet(index: rowIndexes.firstIndex), withAnimation: .EffectFade)
         }
-        return false
+        for dmedi in newMedias {
+            Media.addMedia(dmedi, index: row, tableView: tableView)
+        }
+        return newMedias.count > 0
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {
@@ -179,20 +195,19 @@ class MPlayerVC: NSViewController {
     func chLive(isLive: Bool) {
         _isLive = isLive
         playerView.player = MPlayerVC.outPlayer(self)
+        view.wantsLayer = true
+        view.layer!.backgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 1).CGColor
     }
     
     private func changeMedia(newMedia: Media?) {
         if cmedia != newMedia {
+            let isImg = newMedia?.isImg == true
             cmedia = newMedia
             imgView.image = newMedia?.image
-            let isImg = imgView.image != nil
             imgView.hidden = !isImg
             playerView.hidden = isImg
-            if !isImg {
-                if let pvplayer = playerView.player as? VPlayer {
-                    pvplayer.changeMedia(newMedia)
-                }
-            }
+            let pvplayer = playerView.player as! VPlayer
+            pvplayer.changeMedia(newMedia)
         }
     }
 }

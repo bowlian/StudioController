@@ -22,6 +22,13 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Check for Updates..." id="rmU-fb-Yqs">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="checkForUpdates:" target="F88-Lv-r9w" id="ZaT-KZ-cWs"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="mzz-pI-HVs"/>
                                         <menuItem title="Hide StudioController" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
@@ -115,6 +122,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="StudioController" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="F88-Lv-r9w" customClass="SUUpdater"/>
             </objects>
             <point key="canvasLocation" x="87.5" y="-1"/>
         </scene>
@@ -123,7 +131,7 @@
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Studio Controller" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="480"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -143,10 +151,10 @@
                 <windowController storyboardIdentifier="OutputWC" id="MTm-ae-kXo" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
                         <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-                        <rect key="contentRect" x="294" y="294" width="480" height="372"/>
+                        <windowPositionMask key="initialPositionMask" rightStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="1408" y="32" width="480" height="360"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
-                        <value key="minSize" type="size" width="480" height="372"/>
+                        <value key="minSize" type="size" width="480" height="360"/>
                     </window>
                     <connections>
                         <segue destination="ueA-of-lZe" kind="relationship" relationship="window.shadowedContentViewController" id="dak-TK-rWM"/>
@@ -209,7 +217,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-Vd-Sma">
-                                <rect key="frame" x="267" y="444" width="122" height="32"/>
+                                <rect key="frame" x="383" y="444" width="122" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="7PL-BO-b6v"/>
                                     <constraint firstAttribute="height" constant="21" id="wfZ-IV-sh8"/>
@@ -219,6 +227,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="btncFetchWeather:" target="XfG-lQ-9wD" id="eyN-6J-rz5"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ou2-pe-k1A">
                                 <rect key="frame" x="126" y="444" width="117" height="32"/>
@@ -234,18 +245,6 @@
                                 <connections>
                                     <action selector="btncRemoveMedia:" target="XfG-lQ-9wD" id="zeg-jT-bW3"/>
                                 </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="phy-8v-lfX">
-                                <rect key="frame" x="393" y="444" width="112" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="7HK-le-cdi"/>
-                                    <constraint firstAttribute="width" constant="100" id="abM-bt-B9M"/>
-                                </constraints>
-                                <animations/>
-                                <buttonCell key="cell" type="push" title="Queue Media" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="CS3-HH-0H8">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zn9-ay-Bw3">
                                 <rect key="frame" x="14" y="202" width="56" height="17"/>
@@ -344,8 +343,8 @@
                                                             <rect key="frame" x="1" y="1" width="360" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLm-p4-KwO">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="17"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="MLm-p4-KwO">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="360" height="17"/>
                                                                     <animations/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Am8-kA-LJx">
                                                                         <font key="font" metaFont="system"/>
@@ -354,6 +353,12 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="MLm-p4-KwO" firstAttribute="top" secondItem="sBh-Do-nyH" secondAttribute="top" id="DlL-ne-rQZ"/>
+                                                                <constraint firstAttribute="trailing" secondItem="MLm-p4-KwO" secondAttribute="trailing" constant="2" id="IBQ-hH-cdm"/>
+                                                                <constraint firstItem="MLm-p4-KwO" firstAttribute="leading" secondItem="sBh-Do-nyH" secondAttribute="leading" constant="2" id="mnP-uh-adZ"/>
+                                                                <constraint firstAttribute="bottom" secondItem="MLm-p4-KwO" secondAttribute="bottom" id="udM-f2-SYQ"/>
+                                                            </constraints>
                                                             <animations/>
                                                             <connections>
                                                                 <outlet property="textField" destination="MLm-p4-KwO" id="kYu-DE-ntf"/>
@@ -427,7 +432,6 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="egs-bT-Zxc" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="1EF-r5-D0T"/>
-                            <constraint firstAttribute="trailing" secondItem="phy-8v-lfX" secondAttribute="trailing" constant="16" id="2cn-v2-ia7"/>
                             <constraint firstItem="agc-Qn-WfZ" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="4hx-KD-3zr"/>
                             <constraint firstAttribute="trailing" secondItem="uFA-jS-qDp" secondAttribute="trailing" constant="220" id="5De-Gt-Ls7"/>
                             <constraint firstItem="ou2-pe-k1A" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="7OA-4V-q2j"/>
@@ -443,26 +447,24 @@
                             <constraint firstItem="MgF-Eu-xcs" firstAttribute="leading" secondItem="3eh-pK-R9S" secondAttribute="trailing" constant="12" id="P3X-tu-W3l"/>
                             <constraint firstItem="JXi-9u-B37" firstAttribute="top" secondItem="uFA-jS-qDp" secondAttribute="bottom" constant="8" id="SLF-mG-YhD"/>
                             <constraint firstItem="s0c-Kp-rca" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="UUl-B1-0Z3"/>
-                            <constraint firstItem="phy-8v-lfX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="V0a-My-KUE"/>
                             <constraint firstAttribute="bottom" secondItem="JXi-9u-B37" secondAttribute="bottom" constant="16" id="XGK-Ps-zNP"/>
                             <constraint firstItem="ou2-pe-k1A" firstAttribute="leading" secondItem="s0c-Kp-rca" secondAttribute="trailing" constant="16" id="Z8h-79-PQ8"/>
                             <constraint firstItem="Zn9-ay-Bw3" firstAttribute="top" secondItem="3eh-pK-R9S" secondAttribute="bottom" constant="8" id="anN-IZ-kaF"/>
                             <constraint firstItem="3eh-pK-R9S" firstAttribute="centerY" secondItem="MgF-Eu-xcs" secondAttribute="centerY" id="bUJ-eT-Wvy"/>
-                            <constraint firstItem="sZS-aB-HHj" firstAttribute="top" secondItem="phy-8v-lfX" secondAttribute="bottom" constant="8" id="dEd-xp-Gip"/>
                             <constraint firstItem="3eh-pK-R9S" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="es4-cY-cdV"/>
+                            <constraint firstItem="sZS-aB-HHj" firstAttribute="top" secondItem="s0c-Kp-rca" secondAttribute="bottom" constant="8" id="iKD-fh-7Ky"/>
                             <constraint firstAttribute="trailing" secondItem="JXi-9u-B37" secondAttribute="trailing" constant="16" id="j72-Nd-0sY"/>
                             <constraint firstItem="JXi-9u-B37" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="egs-bT-Zxc" secondAttribute="trailing" constant="8" id="jqs-aJ-jhQ"/>
                             <constraint firstItem="sZS-aB-HHj" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="leo-GZ-qYT"/>
-                            <constraint firstItem="phy-8v-lfX" firstAttribute="leading" secondItem="LvM-Vd-Sma" secondAttribute="trailing" constant="16" id="nWJ-6Q-fWX"/>
                             <constraint firstItem="Zn9-ay-Bw3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="oIE-X6-xlg"/>
                             <constraint firstItem="3eh-pK-R9S" firstAttribute="top" secondItem="sZS-aB-HHj" secondAttribute="bottom" constant="8" id="rIT-lv-igp"/>
                             <constraint firstAttribute="trailing" secondItem="sZS-aB-HHj" secondAttribute="trailing" constant="16" id="tKz-eB-zpo"/>
+                            <constraint firstAttribute="trailing" secondItem="LvM-Vd-Sma" secondAttribute="trailing" constant="16" id="zSA-d0-ilH"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
                         <outlet property="btnFetchWeather" destination="LvM-Vd-Sma" id="Ac7-hq-wUz"/>
-                        <outlet property="btnQueue" destination="phy-8v-lfX" id="zsV-dl-45Z"/>
                         <outlet property="btnRemoveMedia" destination="ou2-pe-k1A" id="lf8-DJ-IC6"/>
                         <outlet property="tableView" destination="hmX-yF-hwB" id="719-s6-Yah"/>
                     </connections>
@@ -512,6 +514,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FCP-Gt-Kk3"/>
+        <segue reference="maL-xF-yJZ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -32,6 +32,27 @@ class Media: NSObject, NSCoding {
         }
         return nil
     }
+    private var _length: Double?
+    var length: Double {
+        if let lengt = _length {
+            return lengt
+        } else if !isImg {
+            if let lpi = lastPlayerItem {
+                if lpi.duration.seconds > 0 {
+                    _length = lpi.duration.seconds
+                    return _length!
+                }
+            }
+        }
+        return 0.0
+    }
+    var currentTime: Double {
+        if let lpi = lastPlayerItem {
+            return lpi.currentTime().seconds
+        } else {
+            return 0.0
+        }
+    }
     
     init(url: NSURL){
         self.url = url

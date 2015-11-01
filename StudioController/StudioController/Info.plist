@@ -8,8 +8,6 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
-	<key>SUFeedURL</key>
-	<string>https://gator4170.hostgator.com/~bradbuzz/c/osx/StudioController/appcast.xml</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -34,5 +32,7 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>https://gator4170.hostgator.com/~bradbuzz/c/osx/StudioController/appcast.xml</string>
 </dict>
 </plist>

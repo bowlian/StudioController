@@ -14,6 +14,8 @@ class StudioControllerVC: NSViewController {
     
     var prevPlayerVC: MPlayerVC!
     var livePlayerVC: MPlayerVC!
+    var prevControlsVC: MVControlsVC!
+    var liveControlsVC: MVControlsVC!
     @IBOutlet weak var btnFetchWeather: NSButton!
     @IBOutlet weak var btnRemoveMedia: NSButton!
     @IBOutlet weak var tableView: NSTableView!
@@ -43,8 +45,8 @@ class StudioControllerVC: NSViewController {
     
     override func viewDidAppear() {
         upSelRow()
-        prevPlayerVC.chLive(false)
-        livePlayerVC.chLive(true)
+        prevPlayerVC.chLive(false, Vcontrols: prevControlsVC)
+        livePlayerVC.chLive(true, Vcontrols: liveControlsVC)
     }
     
     func upSelRow() {
@@ -83,6 +85,12 @@ class StudioControllerVC: NSViewController {
                 prevPlayerVC = dvc
             } else if segue.identifier == "MPVClive" {
                 livePlayerVC = dvc
+            }
+        } else if let dvc = segue.destinationController as? MVControlsVC {
+            if segue.identifier == "VCVCprev" {
+                prevControlsVC = dvc
+            } else if segue.identifier == "VCVClive" {
+                liveControlsVC = dvc
             }
         }
     }
@@ -174,6 +182,9 @@ class MPlayerVC: NSViewController {
     }
     
     private static func upPlayers() {
+        for (ilive, player) in players {
+            player.muted = !ilive //Mute audio if not live
+        }
         for mpvc in insts {
             mpvc.changeMedia(medias[mpvc.isLive != livePli]!)
         }
@@ -187,14 +198,17 @@ class MPlayerVC: NSViewController {
     //Instance variables
     private var _isLive: Bool = true
     private var cmedia: Media?
+    private var vcontrols: MVControlsVC?
     
     var isLive: Bool {
         return _isLive
     }
     
-    func chLive(isLive: Bool) {
+    func chLive(isLive: Bool, Vcontrols: MVControlsVC? = nil) {
         _isLive = isLive
+        vcontrols = Vcontrols
         playerView.player = MPlayerVC.outPlayer(self)
+        vcontrols?.setPlayer(playerView.player!)
         view.wantsLayer = true
         view.layer!.backgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 1).CGColor
     }
@@ -208,6 +222,75 @@ class MPlayerVC: NSViewController {
             playerView.hidden = isImg
             let pvplayer = playerView.player as! VPlayer
             pvplayer.changeMedia(newMedia)
+            vcontrols?.chMedia(newMedia)
+        }
+    }
+}
+
+class MVControlsVC: NSViewController {
+    @IBOutlet weak var sliderPos: NSSlider!
+    @IBOutlet weak var btnPlay: NSButton!
+    @IBOutlet weak var lblPos: NSTextField!
+    private var cmedia: Media?
+    private var uptimer: NSTimer?
+    private var player: AVPlayer?
+    
+    private var isPlaying: Bool {
+        return player?.rate > 0
+    }
+    
+    private func secStr(secs: Double) -> String {
+        if secs.isNormal {
+            let min = Int(secs / 60)
+            let sec = Int(secs % 60)
+            return String(min) + ":" + String(format: "%02d", sec)
+        } else {
+            return ""
+        }
+    }
+    
+    func chMedia(newMedia: Media?) {
+        uptimer?.invalidate()
+        cmedia = nil
+        let mediaIsVideo = newMedia?.isImg == false
+        if mediaIsVideo {
+            cmedia = newMedia
+            uptimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("up:"), userInfo: nil, repeats: true)
+            uptimer?.fire()
+        }
+        self.view.hidden = !mediaIsVideo
+    }
+    func up(timer: NSTimer) {
+        if isPlaying {
+            btnPlay.title = "Pause"
+        } else {
+            btnPlay.title = "Play"
+        }
+        if let media = cmedia {
+            let ctime = media.currentTime
+            lblPos.stringValue = secStr(ctime) + " / " + secStr(media.length)
+            sliderPos.hidden = media.length <= 0
+            if !sliderPos.hidden {
+                sliderPos.maxValue = media.length
+                sliderPos.doubleValue = ctime
+            }
+        }
+    }
+    func setPlayer(newPlayer: AVPlayer) {
+        player = newPlayer
+        btnPlay.hidden = false
+    }
+    @IBAction func btncPlay(sender: NSButton) {
+        if isPlaying {
+            player?.pause()
+        } else {
+            player?.play()
+        }
+        uptimer?.fire()
+    }
+    @IBAction func sliderc(sender: NSSlider) {
+        if let playe = player {
+            playe.seekToTime(CMTime(seconds: sender.doubleValue, preferredTimescale: playe.currentTime().timescale))
         }
     }
 }

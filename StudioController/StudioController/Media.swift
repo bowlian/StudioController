@@ -15,8 +15,11 @@ class Media: NSObject, NSCoding {
     var name: String {
         return url.lastPathComponent!
     }
-    let image: NSImage?
+    var image: NSImage? {
+        return NSImage(contentsOfURL: url) //Only works if valid image
+    }
     var isImg: Bool {
+        print(url)
         return image != nil
     }
     private var _lastPlayerItem: AVPlayerItem?
@@ -54,9 +57,17 @@ class Media: NSObject, NSCoding {
         }
     }
     
-    init(url: NSURL){
-        self.url = url
-        image = NSImage(contentsOfURL: url) //Only works if valid image
+    init(url: NSURL, localCopy: Bool = false) {
+        let wid = Int(NSDate().timeIntervalSince1970)
+        let localUrl = File.adURL.URLByAppendingPathComponent("\(wid)").URLByAppendingPathExtension(url.pathExtension!)
+        if localCopy {
+            if url.fileURL {
+                File.copyFile(url, toURL: localUrl)
+            }
+            self.url = localUrl
+        } else {
+            self.url = url
+        }
         super.init()
     }
     
@@ -78,7 +89,7 @@ class Media: NSObject, NSCoding {
     }
     
     override func isEqual(object: AnyObject?) -> Bool {
-        if let obj = object {
+        if let obj = object as? Media {
             return obj.url == self.url
         }
         return false
@@ -102,7 +113,7 @@ class Media: NSObject, NSCoding {
             File.dset(.mediaList, _medias)
         }
     }
-    static func addMedia(newMedia: Media, index: Int? = nil, tableView: NSTableView? = nil) {
+    static func addMedia(newMedia: Media, index: Int? = nil) {
         if !medias.contains(newMedia) { //Prevent duplicates
             var insertIndSet: NSIndexSet?
             if let ind = index {
@@ -115,7 +126,7 @@ class Media: NSObject, NSCoding {
                 medias.append(newMedia)
                 insertIndSet = NSIndexSet(index: medias.count - 1)
             }
-            if let tableVie = tableView {
+            if let tableVie = StudioControllerVC.TableView {
                 tableVie.insertRowsAtIndexes(insertIndSet!, withAnimation: .EffectFade)
             }
         }
@@ -131,6 +142,45 @@ class VPlayer: AVPlayer {
             }
             play()
         }
+    }
+}
+
+class Weather: Media {
+    var remoteUrl: NSURL
+    init(RemoteUrl: NSURL) {
+        remoteUrl = RemoteUrl
+        super.init(url: RemoteUrl, localCopy: true)
+    }
+    required convenience init?(coder: NSCoder) {
+        if let remUrl = coder.decodeObjectForKey("remoteUrl") as? NSURL {
+            self.init(RemoteUrl: remUrl)
+        } else {
+            return nil
+        }
+    }
+    override func encodeWithCoder(coder: NSCoder) {
+        coder.encodeObject(self.remoteUrl, forKey: "remoteUrl")
+        super.encodeWithCoder(coder)
+    }
+    
+    func fetch(onLoad: (()->())? = nil) {
+        if let data = NSData(contentsOfURL: remoteUrl) {
+            print("Download succeeded for " +  remoteUrl.path!)
+            data.writeToURL(url, atomically: true)
+        } else {
+            print("Download failed for " +  remoteUrl.path!)
+        }
+        onLoad?()
+    }
+    
+    static var weathers: [Weather] {
+        var weathers = [Weather]()
+        for media in Media.medias {
+            if let weath = media as? Weather {
+                weathers.append(weath)
+            }
+        }
+        return weathers
     }
 }
 

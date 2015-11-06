@@ -55,6 +55,65 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="File" id="H8h-7b-M4v">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="File" id="HyV-fh-RgO">
+                                    <items>
+                                        <menuItem title="Add File" keyEquivalent="o" id="Yiq-MX-rA5"/>
+                                        <menuItem title="Save" keyEquivalent="s" id="wYC-v7-7tC"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Edit" id="hif-FJ-WB9">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Edit" id="nyF-5t-uPN">
+                                    <items>
+                                        <menuItem title="Undo" keyEquivalent="z" id="WI9-UB-GKq">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="aix-P1-pvw"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="Z" id="pAR-BW-PjG">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="0cq-xX-qLB"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Aku-hP-z8j"/>
+                                        <menuItem title="Cut" keyEquivalent="x" id="bnt-1E-j28">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="PAC-Xm-5Gt"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="o1C-hL-1df">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="zN5-iC-c52"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste" keyEquivalent="v" id="Krh-Zp-70o">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="rPy-TG-axf"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="Epd-DM-rN6">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="FOF-RW-0cs"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Delete" id="mBa-c7-lDo">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="delete:" target="Ady-hI-5gd" id="Tx5-Tn-5T1"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Select All" keyEquivalent="a" id="N8b-7l-rC2">
+                                            <connections>
+                                                <action selector="selectAll:" target="Ady-hI-5gd" id="O3P-30-t6C"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Control" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Control" id="W48-6f-4Dl">
@@ -65,15 +124,6 @@
                                         <menuItem title="Next" keyEquivalent="" id="GaV-Dw-xby">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Media" id="H8h-7b-M4v">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Media" id="HyV-fh-RgO">
-                                    <items>
-                                        <menuItem title="Add File" keyEquivalent="o" id="Yiq-MX-rA5"/>
-                                        <menuItem title="Save" keyEquivalent="s" id="wYC-v7-7tC"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -202,9 +252,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-Kp-rca">
-                                <rect key="frame" x="10" y="426" width="112" height="32"/>
+                                <rect key="frame" x="10" y="426" width="102" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="LIL-Lm-Jan"/>
+                                    <constraint firstAttribute="width" constant="90" id="LIL-Lm-Jan"/>
                                 </constraints>
                                 <animations/>
                                 <buttonCell key="cell" type="push" title="Add Media" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="4R4-z7-YKQ">
@@ -212,7 +262,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="btncAddMedia:" target="XfG-lQ-9wD" id="bsf-dz-N3K"/>
+                                    <segue destination="V58-wU-nWL" kind="sheet" id="Jr0-Vh-HtI"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-Vd-Sma">
@@ -229,22 +279,8 @@
                                     <action selector="btncFetchWeather:" target="XfG-lQ-9wD" id="eyN-6J-rz5"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ou2-pe-k1A">
-                                <rect key="frame" x="126" y="426" width="117" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="105" id="Urx-AB-Pmd"/>
-                                </constraints>
-                                <animations/>
-                                <buttonCell key="cell" type="push" title="Remove Media" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="RVY-3P-iHC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="btncRemoveMedia:" target="XfG-lQ-9wD" id="zeg-jT-bW3"/>
-                                </connections>
-                            </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zn9-ay-Bw3">
-                                <rect key="frame" x="104" y="230" width="61" height="17"/>
+                                <rect key="frame" x="105" y="230" width="61" height="17"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="PREVIEW" id="mKF-Cg-2D9">
                                     <font key="font" metaFont="system"/>
@@ -398,6 +434,20 @@
                                     <segue destination="zi9-v6-HLQ" kind="embed" identifier="VCVCprev" id="BCx-D8-rbI"/>
                                 </connections>
                             </containerView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ou2-pe-k1A">
+                                <rect key="frame" x="116" y="426" width="117" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="Urx-AB-Pmd"/>
+                                </constraints>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Remove Media" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="RVY-3P-iHC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="btncRemoveMedia:" target="XfG-lQ-9wD" id="zeg-jT-bW3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="egs-bT-Zxc" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="16" id="1EF-r5-D0T"/>
@@ -419,7 +469,6 @@
                             <constraint firstItem="2Ji-wb-lgx" firstAttribute="top" secondItem="egs-bT-Zxc" secondAttribute="bottom" id="bb6-0F-qMq"/>
                             <constraint firstItem="2Ji-wb-lgx" firstAttribute="trailing" secondItem="egs-bT-Zxc" secondAttribute="trailing" id="bbk-Qi-RpG"/>
                             <constraint firstItem="uFA-jS-qDp" firstAttribute="centerX" secondItem="JXi-9u-B37" secondAttribute="centerX" id="blp-N7-zeH"/>
-                            <constraint firstItem="ou2-pe-k1A" firstAttribute="leading" secondItem="s0c-Kp-rca" secondAttribute="trailing" constant="16" id="eHQ-cj-wQE"/>
                             <constraint firstItem="LvM-Vd-Sma" firstAttribute="centerY" secondItem="ou2-pe-k1A" secondAttribute="centerY" id="iDd-28-Z0r"/>
                             <constraint firstAttribute="trailing" secondItem="JXi-9u-B37" secondAttribute="trailing" constant="16" id="j72-Nd-0sY"/>
                             <constraint firstItem="JXi-9u-B37" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="egs-bT-Zxc" secondAttribute="trailing" constant="8" id="jqs-aJ-jhQ"/>
@@ -427,6 +476,7 @@
                             <constraint firstAttribute="bottom" secondItem="hnD-BW-vAa" secondAttribute="bottom" id="qHg-kJ-KKq"/>
                             <constraint firstItem="hnD-BW-vAa" firstAttribute="leading" secondItem="JXi-9u-B37" secondAttribute="leading" id="vl5-CA-rpT"/>
                             <constraint firstItem="agc-Qn-WfZ" firstAttribute="top" secondItem="sZS-aB-HHj" secondAttribute="bottom" constant="8" id="yc3-pV-Vto"/>
+                            <constraint firstItem="ou2-pe-k1A" firstAttribute="leading" secondItem="s0c-Kp-rca" secondAttribute="trailing" constant="16" id="ymx-tZ-OdW"/>
                             <constraint firstItem="Zn9-ay-Bw3" firstAttribute="top" secondItem="agc-Qn-WfZ" secondAttribute="bottom" constant="4" id="zRc-93-ukf"/>
                         </constraints>
                         <animations/>
@@ -479,6 +529,140 @@
                 <customObject id="Xsc-GN-vGF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="87" y="1669"/>
+        </scene>
+        <!--Add Media-->
+        <scene sceneID="opm-KS-Spt">
+            <objects>
+                <viewController title="Add Media" id="V58-wU-nWL" customClass="SCAddMediaVC" customModule="StudioController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="kJe-Wo-dLN">
+                        <rect key="frame" x="0.0" y="0.0" width="348" height="154"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z4I-Pu-QKt">
+                                <rect key="frame" x="136" y="127" width="77" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Add Media" id="8tW-K1-q18">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ly6-RH-YcZ">
+                                <rect key="frame" x="10" y="83" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="WAI-8P-ivI"/>
+                                </constraints>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Add File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CfX-Fy-ZVP">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="btncAddFile:" target="V58-wU-nWL" id="xkG-9B-Aww"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EMq-3l-084">
+                                <rect key="frame" x="10" y="46" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="tJL-2o-Jq4"/>
+                                </constraints>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Add URL" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Aeo-4Q-w8n">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="btncAddURL:" target="V58-wU-nWL" id="ZuL-gp-UAm"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YPG-N8-gfl">
+                                <rect key="frame" x="226" y="9" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="A3E-bw-JoP"/>
+                                </constraints>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Add URL" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0IL-OK-hOk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="btncAddURLDone:" target="V58-wU-nWL" id="Gfp-pQ-86K"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bgc-0V-XeF">
+                                <rect key="frame" x="10" y="9" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="c7w-Ao-mDr"/>
+                                </constraints>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XWW-Cj-ncH">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="btncCancel:" target="V58-wU-nWL" id="K1m-14-wm6"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="cbJ-zp-nhe">
+                                <rect key="frame" x="130" y="84" width="204" height="34"/>
+                                <animations/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Tip: you can also add files by dragging them into the list." id="glg-8K-bqI">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pmj-nN-K0a">
+                                <rect key="frame" x="16" y="52" width="316" height="22"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Paste image URL here" drawsBackground="YES" id="Oo4-9g-gIe">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="V58-wU-nWL" id="lZ4-9f-1ro"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="bgc-0V-XeF" firstAttribute="top" secondItem="EMq-3l-084" secondAttribute="bottom" constant="16" id="0zO-ZJ-iL2"/>
+                            <constraint firstItem="Pmj-nN-K0a" firstAttribute="leading" secondItem="kJe-Wo-dLN" secondAttribute="leading" constant="16" id="57r-5Z-0Sz"/>
+                            <constraint firstItem="ly6-RH-YcZ" firstAttribute="leading" secondItem="kJe-Wo-dLN" secondAttribute="leading" constant="16" id="Mpe-vq-XIH"/>
+                            <constraint firstAttribute="trailing" secondItem="Pmj-nN-K0a" secondAttribute="trailing" constant="16" id="O4w-SF-dM2"/>
+                            <constraint firstItem="EMq-3l-084" firstAttribute="top" secondItem="ly6-RH-YcZ" secondAttribute="bottom" constant="16" id="One-K4-nQw"/>
+                            <constraint firstAttribute="trailing" secondItem="cbJ-zp-nhe" secondAttribute="trailing" constant="16" id="RNk-V7-Rrx"/>
+                            <constraint firstAttribute="bottom" secondItem="bgc-0V-XeF" secondAttribute="bottom" constant="16" id="SN5-TV-hFa"/>
+                            <constraint firstAttribute="trailing" secondItem="YPG-N8-gfl" secondAttribute="trailing" constant="16" id="WDG-bC-Auo"/>
+                            <constraint firstItem="ly6-RH-YcZ" firstAttribute="top" secondItem="z4I-Pu-QKt" secondAttribute="bottom" constant="16" id="b4K-o4-c1k"/>
+                            <constraint firstItem="z4I-Pu-QKt" firstAttribute="centerX" secondItem="kJe-Wo-dLN" secondAttribute="centerX" id="eX6-xd-Shh"/>
+                            <constraint firstItem="z4I-Pu-QKt" firstAttribute="top" secondItem="kJe-Wo-dLN" secondAttribute="top" constant="10" id="kQf-wA-EI2"/>
+                            <constraint firstItem="Pmj-nN-K0a" firstAttribute="centerY" secondItem="EMq-3l-084" secondAttribute="centerY" id="mu2-LA-cg6"/>
+                            <constraint firstAttribute="bottom" secondItem="YPG-N8-gfl" secondAttribute="bottom" constant="16" id="naR-ib-feH"/>
+                            <constraint firstItem="bgc-0V-XeF" firstAttribute="leading" secondItem="kJe-Wo-dLN" secondAttribute="leading" constant="16" id="oFz-Ku-7sj"/>
+                            <constraint firstItem="EMq-3l-084" firstAttribute="leading" secondItem="kJe-Wo-dLN" secondAttribute="leading" constant="16" id="q5o-Ne-WzR"/>
+                            <constraint firstItem="cbJ-zp-nhe" firstAttribute="leading" secondItem="ly6-RH-YcZ" secondAttribute="trailing" constant="16" id="rDe-cj-afK"/>
+                            <constraint firstItem="cbJ-zp-nhe" firstAttribute="centerY" secondItem="ly6-RH-YcZ" secondAttribute="centerY" id="wBV-JD-QPG"/>
+                        </constraints>
+                        <animations/>
+                    </view>
+                    <connections>
+                        <outlet property="btnAddFile" destination="ly6-RH-YcZ" id="PGC-ke-73Z"/>
+                        <outlet property="btnAddURL" destination="EMq-3l-084" id="vsp-Np-psS"/>
+                        <outlet property="btnAddURLDone" destination="YPG-N8-gfl" id="ERI-4x-yYm"/>
+                        <outlet property="lblTipDrag" destination="cbJ-zp-nhe" id="V57-Zp-fXc"/>
+                        <outlet property="txtURL" destination="Pmj-nN-K0a" id="54A-cG-LsG"/>
+                    </connections>
+                </viewController>
+                <customObject id="UCI-Zb-qE2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-506.5" y="1167"/>
         </scene>
         <!--MVControls-->
         <scene sceneID="ywn-tm-5kq">

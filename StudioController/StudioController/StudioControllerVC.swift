@@ -19,6 +19,7 @@ class StudioControllerVC: NSViewController {
     @IBOutlet weak var btnFetchWeather: NSButton!
     @IBOutlet weak var btnRemoveMedia: NSButton!
     @IBOutlet weak var tableView: NSTableView!
+    static var TableView: NSTableView!
     
     var selectedRow: Int? {
         let selRow = tableView.selectedRow
@@ -41,6 +42,7 @@ class StudioControllerVC: NSViewController {
         tableView.setDelegate(self)
         tableView.setDataSource(self)
         tableView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
+        StudioControllerVC.TableView = tableView
     }
     
     override func viewDidAppear() {
@@ -52,14 +54,6 @@ class StudioControllerVC: NSViewController {
     func upSelRow() {
         btnRemoveMedia.enabled = selectedRow != nil
         MPlayerVC.chMedia(selectedMedia, live: false)
-    }
-
-    @IBAction func btncAddMedia(sender: NSButton) {
-        let openPanel = NSOpenPanel()
-        openPanel.runModal()
-        for url in openPanel.URLs {
-            Media.addMedia(Media(url: url), tableView: tableView)
-        }
     }
     
     @IBAction func btncRemoveMedia(sender: NSButton) {
@@ -74,9 +68,9 @@ class StudioControllerVC: NSViewController {
     }
     
     @IBAction func btncFetchWeather(sender: NSButton) {
-        let nyialert = NSAlert()
-        nyialert.messageText = "Not yet implemented! This feature will automatically download the most recent weather images and add them to the list."
-        nyialert.runModal()
+        for weather in Weather.weathers {
+            weather.fetch()
+        }
     }
 
     override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
@@ -149,7 +143,7 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
             tableView.removeRowsAtIndexes(NSIndexSet(index: rowIndexes.firstIndex), withAnimation: .EffectFade)
         }
         for dmedi in newMedias {
-            Media.addMedia(dmedi, index: row, tableView: tableView)
+            Media.addMedia(dmedi, index: row)
         }
         return newMedias.count > 0
     }
@@ -292,6 +286,70 @@ class MVControlsVC: NSViewController {
         if let playe = player {
             playe.seekToTime(CMTime(seconds: sender.doubleValue, preferredTimescale: playe.currentTime().timescale))
         }
+    }
+}
+
+class SCAddMediaVC: NSViewController, NSTextFieldDelegate {
+    @IBOutlet weak var btnAddFile: NSButton!
+    @IBOutlet weak var btnAddURL: NSButton!
+    @IBOutlet weak var btnAddURLDone: NSButton!
+    @IBOutlet weak var txtURL: NSTextField!
+    @IBOutlet weak var lblTipDrag: NSTextField!
+    
+    var enteredURL: NSURL? {
+        if let url = NSURL(string: txtURL.stringValue) {
+            if url.host != nil {
+                return url
+            }
+        }
+        return nil
+    }
+    
+    @IBAction func btncAddFile(sender: NSButton) {
+        let openPanel = NSOpenPanel()
+        openPanel.runModal()
+        for url in openPanel.URLs {
+            Media.addMedia(Media(url: url))
+        }
+        dismissViewController(self)
+    }
+    @IBAction func btncAddURL(sender: NSButton) {
+        txtURL.hidden = false
+        btnAddURLDone.hidden = false
+        btnAddURL.hidden = true
+        lblTipDrag.hidden = true
+        btnAddFile.enabled = false
+    }
+    @IBAction func btncCancel(sender: NSButton) {
+        dismissViewController(self)
+    }
+    override func controlTextDidChange(obj: NSNotification) {
+        btnAddURLDone.enabled = txtURL.stringValue.characters.count > 3
+    }
+    @IBAction func btncAddURLDone(sender: NSButton) {
+        if let url = enteredURL {
+            let weath = Weather(RemoteUrl: url)
+            weath.fetch({
+                if weath.isImg {
+                    Media.addMedia(weath)
+                    self.dismissViewController(self)
+                } else {
+                    self.urlFailAlert(true)
+                }
+            })
+        } else {
+            urlFailAlert(false)
+        }
+    }
+    func urlFailAlert(isUrlValid: Bool) {
+        let ufalert = NSAlert()
+        if isUrlValid {
+            ufalert.messageText = "An image was not found at this link."
+        } else {
+            ufalert.messageText = "Invalid URL"
+        }
+        ufalert.informativeText = "Please ensure the URL you entered is valid."
+        ufalert.runModal()
     }
 }
 

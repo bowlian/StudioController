@@ -11,15 +11,16 @@ import AVKit
 import AVFoundation
 
 class Media: NSObject, NSCoding {
-    let url: NSURL
-    var name: String {
-        return url.lastPathComponent!
+    private var _url: NSURL
+    var url: NSURL {
+        return _url
     }
+    let wid: Int
+    var name: String
     var image: NSImage? {
         return NSImage(contentsOfURL: url) //Only works if valid image
     }
     var isImg: Bool {
-        print(url)
         return image != nil
     }
     private var _lastPlayerItem: AVPlayerItem?
@@ -57,42 +58,76 @@ class Media: NSObject, NSCoding {
         }
     }
     
-    init(url: NSURL, localCopy: Bool = false) {
-        let wid = Int(NSDate().timeIntervalSince1970)
-        let localUrl = File.adURL.URLByAppendingPathComponent("\(wid)").URLByAppendingPathExtension(url.pathExtension!)
-        if localCopy {
-            if url.fileURL {
-                File.copyFile(url, toURL: localUrl)
-            }
-            self.url = localUrl
-        } else {
-            self.url = url
-        }
-        super.init()
-    }
-    
     private var _time: CMTime?
     var time: CMTime? {
         return _time
     }
     
+    private var localURL: NSURL {
+        return File.adURL.URLByAppendingPathComponent("\(wid)").URLByAppendingPathExtension(url.pathExtension!)
+    }
+    private var isLocal: Bool {
+        return url == localURL
+    }
+    func localCopy(var shouldChangeURL: Bool = false) -> Bool {
+        if url.fileURL {
+            if File.cp(url, toURL: localURL) {
+                shouldChangeURL = true
+            }
+        }
+        if shouldChangeURL {
+            self._url = localURL
+            Media.autoSaveMedias()
+        }
+        return shouldChangeURL
+    }
+    
+    private var lastFetchedDate: NSDate? {
+        if let modifiedDate = File.attrib(url, attributeKey: NSFileModificationDate) as? NSDate {
+            return modifiedDate
+        }
+        return nil
+    }
+    var lastFetchedStr: String {
+        if let lfd = lastFetchedDate,
+        _ = self as? Weather {
+            let dateForm = NSDateFormatter()
+            if lfd.timeIntervalSinceNow < -3600 * 12 {
+                dateForm.dateStyle = .ShortStyle
+            }
+            dateForm.timeStyle = .ShortStyle
+            return dateForm.stringFromDate(lfd)
+        }
+        return ""
+    }
+    
+    init(url: NSURL) {
+        wid = Int(NSDate().timeIntervalSince1970)
+        name = url.lastPathComponent!
+        self._url = url
+        super.init()
+    }
+    
     //Decode / Encode for file storage
+    init(url: NSURL, wid: Int, name: String) {
+        self._url = url
+        self.wid = wid
+        self.name = name
+        super.init()
+    }
     required convenience init?(coder: NSCoder) {
-        if let url = coder.decodeObjectForKey("url") as? NSURL {
-            self.init(url: url)
+        if let url = coder.decodeObjectForKey("url") as? NSURL,
+        wid = coder.decodeObjectForKey("wid") as? Int,
+        name = coder.decodeObjectForKey("name") as? String {
+            self.init(url: url, wid: wid, name: name)
         } else {
             return nil
         }
     }
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.url, forKey: "url")
-    }
-    
-    override func isEqual(object: AnyObject?) -> Bool {
-        if let obj = object as? Media {
-            return obj.url == self.url
-        }
-        return false
+        coder.encodeObject(self.wid, forKey: "wid")
+        coder.encodeObject(self.name, forKey: "name")
     }
     
     //Array of all medias, with auto-save
@@ -110,26 +145,33 @@ class Media: NSObject, NSCoding {
             return [Media]()
         } set {
             _medias = newValue
-            File.dset(.mediaList, _medias)
+            autoSaveMedias()
         }
     }
+    static func autoSaveMedias() {
+        File.dset(.mediaList, _medias)
+    }
     static func addMedia(newMedia: Media, index: Int? = nil) {
-        if !medias.contains(newMedia) { //Prevent duplicates
-            var insertIndSet: NSIndexSet?
-            if let ind = index {
-                if ind < medias.count {
-                    insertIndSet = NSIndexSet(index: ind)
-                    medias.insert(newMedia, atIndex: ind)
-                }
-            }
-            if insertIndSet == nil {
-                medias.append(newMedia)
-                insertIndSet = NSIndexSet(index: medias.count - 1)
-            }
-            if let tableVie = StudioControllerVC.TableView {
-                tableVie.insertRowsAtIndexes(insertIndSet!, withAnimation: .EffectFade)
+        var insertIndSet: NSIndexSet?
+        if let ind = index {
+            if ind < medias.count {
+                insertIndSet = NSIndexSet(index: ind)
+                medias.insert(newMedia, atIndex: ind)
             }
         }
+        if insertIndSet == nil {
+            medias.append(newMedia)
+            insertIndSet = NSIndexSet(index: medias.count - 1)
+        }
+        StudioControllerVC.TableView?.insertRowsAtIndexes(insertIndSet!, withAnimation: .EffectFade)
+    }
+    static func removeMedia(index: Int) {
+        let delMedia = medias[index]
+        if delMedia.isLocal {
+            File.rm(delMedia.url)
+        }
+        medias.removeAtIndex(index)
+        StudioControllerVC.TableView?.removeRowsAtIndexes(NSIndexSet(index: index), withAnimation: .EffectFade)
     }
 }
 
@@ -149,11 +191,21 @@ class Weather: Media {
     var remoteUrl: NSURL
     init(RemoteUrl: NSURL) {
         remoteUrl = RemoteUrl
-        super.init(url: RemoteUrl, localCopy: true)
+        super.init(url: RemoteUrl)
+        localCopy(true)
+    }
+    
+    //Decode / Encode for file storage
+    init(RemoteUrl: NSURL, url: NSURL, wid: Int, name: String) {
+        remoteUrl = RemoteUrl
+        super.init(url: url, wid: wid, name: name)
     }
     required convenience init?(coder: NSCoder) {
-        if let remUrl = coder.decodeObjectForKey("remoteUrl") as? NSURL {
-            self.init(RemoteUrl: remUrl)
+        if let remUrl = coder.decodeObjectForKey("remoteUrl") as? NSURL,
+        url = coder.decodeObjectForKey("url") as? NSURL,
+        wid = coder.decodeObjectForKey("wid") as? Int,
+        name = coder.decodeObjectForKey("name") as? String {
+            self.init(RemoteUrl: remUrl, url: url, wid: wid, name: name)
         } else {
             return nil
         }
@@ -163,14 +215,19 @@ class Weather: Media {
         super.encodeWithCoder(coder)
     }
     
-    func fetch(onLoad: (()->())? = nil) {
-        if let data = NSData(contentsOfURL: remoteUrl) {
-            print("Download succeeded for " +  remoteUrl.path!)
-            data.writeToURL(url, atomically: true)
-        } else {
-            print("Download failed for " +  remoteUrl.path!)
+    func fetch(onLoad: ((Bool)->())? = nil) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { //Download in new thread
+            var dlSuccess = false
+            if let data = NSData(contentsOfURL: self.remoteUrl) {
+                data.writeToURL(self.url, atomically: true)
+                if self.isImg {
+                    dlSuccess = true
+                }
+            }
+            dispatch_async(dispatch_get_main_queue()) { //Execute in main thread for UI update
+                onLoad?(dlSuccess)
+            }
         }
-        onLoad?()
     }
     
     static var weathers: [Weather] {

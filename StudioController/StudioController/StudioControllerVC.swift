@@ -19,6 +19,8 @@ class StudioControllerVC: NSViewController {
     @IBOutlet weak var btnFetchWeather: NSButton!
     @IBOutlet weak var btnRemoveMedia: NSButton!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var indFetching: NSProgressIndicator!
+    @IBOutlet weak var lblFetching: NSTextField!
     static var TableView: NSTableView!
     
     var selectedRow: Int? {
@@ -43,6 +45,7 @@ class StudioControllerVC: NSViewController {
         tableView.setDataSource(self)
         tableView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
         StudioControllerVC.TableView = tableView
+        tableView.sizeToFit()
     }
     
     override func viewDidAppear() {
@@ -58,8 +61,7 @@ class StudioControllerVC: NSViewController {
     
     @IBAction func btncRemoveMedia(sender: NSButton) {
         if let selRow = selectedRow {
-            Media.medias.removeAtIndex(selRow)
-            tableView.removeRowsAtIndexes(NSIndexSet(index: selRow), withAnimation: .EffectFade)
+            Media.removeMedia(selRow)
         }
     }
     
@@ -68,8 +70,70 @@ class StudioControllerVC: NSViewController {
     }
     
     @IBAction func btncFetchWeather(sender: NSButton) {
-        for weather in Weather.weathers {
-            weather.fetch()
+        FetchProg().fetch(self)
+    }
+    class FetchProg {
+        static var currentFetch: FetchProg?
+        var weathers: [Weather] = Weather.weathers
+        var count: Int {
+            return weathers.count
+        }
+        var success: Int = 0
+        var failed: Int = 0
+        var total: Int {
+            return success + failed
+        }
+        var canceled = false
+        var vc: StudioControllerVC!
+        func fetch(VC: StudioControllerVC) {
+            vc = VC
+            FetchProg.currentFetch?.cancel()
+            FetchProg.currentFetch = self
+            vc.upFetchInd(true)
+            for weather in weathers {
+                if !canceled {
+                    weather.fetch({(dlSuccess) in
+                        if dlSuccess {
+                            self.success++
+                        } else {
+                            self.failed++
+                        }
+                        self.vc.upFetchInd()
+                    })
+                }
+            }
+        }
+        func cancel() {
+            canceled = true
+        }
+    }
+    
+    var fetchAgoTimer: NSTimer?
+    func upFetchInd(startAnimation: Bool = false) {
+        if startAnimation {
+            indFetching.startAnimation(self)
+            btnFetchWeather.enabled = false
+        }
+        if let fp = FetchProg.currentFetch {
+            if fp.total < fp.count {
+                lblFetching.stringValue = "\(fp.success)/\(fp.count)"
+                lblFetching.textColor = NSColor(red: 0.2, green: 0, blue: 0.9, alpha: 1)
+            } else {
+                indFetching.stopAnimation(self)
+                btnFetchWeather.enabled = true
+                if fp.failed > 0 {
+                    var fpfs = ""
+                    if fp.failed > 1 {
+                        fpfs = "s"
+                    }
+                    lblFetching.stringValue = "Done. \(fp.failed) error\(fpfs)."
+                    lblFetching.textColor = NSColor(red: 0.9, green: 0, blue: 0.2, alpha: 1)
+                } else {
+                    lblFetching.stringValue = "Success!"
+                    lblFetching.textColor = NSColor(red: 0, green: 0.7, blue: 0.2, alpha: 1)
+                }
+            }
+            tableView.reloadDataForRowIndexes(NSIndexSet(indexesInRange: NSMakeRange(0, numberOfRowsInTableView(tableView))), columnIndexes: NSIndexSet(indexesInRange: NSMakeRange(0, 2)))
         }
     }
 
@@ -90,7 +154,7 @@ class StudioControllerVC: NSViewController {
     }
 }
 
-extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
+extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return Media.medias.count
     }
@@ -101,10 +165,23 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource {
         switch tableColumn!.identifier {
         case "NameCol":
             cellView.textField!.stringValue = media.name
+        case "LastDateCol":
+            cellView.textField!.stringValue = media.lastFetchedStr
         default:
             break
         }
+        if let _ = media as? Weather {
+            cellView.textField!.textColor = NSColor(red: 0.2, green: 0, blue: 0.8, alpha: 1)
+        }
+        cellView.textField!.delegate = self
         return cellView
+    }
+    
+    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        let media = Media.medias[tableView.selectedRow]
+        media.name = control.stringValue
+        Media.autoSaveMedias()
+        return true
     }
     
     func tableView(tableView: NSTableView, writeRowsWithIndexes rowIndexes: NSIndexSet, toPasteboard pboard: NSPasteboard) -> Bool {
@@ -295,6 +372,7 @@ class SCAddMediaVC: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var btnAddURLDone: NSButton!
     @IBOutlet weak var txtURL: NSTextField!
     @IBOutlet weak var lblTipDrag: NSTextField!
+    @IBOutlet weak var indDownloading: NSProgressIndicator!
     
     var enteredURL: NSURL? {
         if let url = NSURL(string: txtURL.stringValue) {
@@ -327,10 +405,13 @@ class SCAddMediaVC: NSViewController, NSTextFieldDelegate {
         btnAddURLDone.enabled = txtURL.stringValue.characters.count > 3
     }
     @IBAction func btncAddURLDone(sender: NSButton) {
-        if let url = enteredURL {
+        if let url = enteredURL { //If entered text is a valid URL
+            btnAddURLDone.enabled = false
             let weath = Weather(RemoteUrl: url)
-            weath.fetch({
-                if weath.isImg {
+            indDownloading.startAnimation(self)
+            weath.fetch({(dlSuccess) in
+                self.indDownloading.stopAnimation(self)
+                if dlSuccess {
                     Media.addMedia(weath)
                     self.dismissViewController(self)
                 } else {
@@ -350,6 +431,7 @@ class SCAddMediaVC: NSViewController, NSTextFieldDelegate {
         }
         ufalert.informativeText = "Please ensure the URL you entered is valid."
         ufalert.runModal()
+        btnAddURLDone.enabled = true
     }
 }
 

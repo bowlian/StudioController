@@ -57,10 +57,17 @@
                             </menuItem>
                             <menuItem title="File" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="File" id="HyV-fh-RgO">
+                                <menu key="submenu" title="File" autoenablesItems="NO" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Add File" keyEquivalent="o" id="Yiq-MX-rA5"/>
-                                        <menuItem title="Save" keyEquivalent="s" id="wYC-v7-7tC"/>
+                                        <menuItem title="Add Media" keyEquivalent="o" id="Yiq-MX-rA5"/>
+                                        <menuItem title="Remove Media" enabled="NO" id="wYC-v7-7tC">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                            <connections>
+                                                <action selector="menuRemoveMedia:" target="Voe-Tx-rLC" id="M1M-wz-S1h"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -116,7 +123,7 @@
                             </menuItem>
                             <menuItem title="Control" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Control" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Control" autoenablesItems="NO" id="W48-6f-4Dl">
                                     <items>
                                         <menuItem title="Previous" keyEquivalent="" id="HOu-9k-Ast">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -170,7 +177,11 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="StudioController" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="StudioController" customModuleProvider="target">
+                    <connections>
+                        <outlet property="menRemoveMedia" destination="wYC-v7-7tC" id="DED-No-WuI"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="F88-Lv-r9w" customClass="SUUpdater"/>
             </objects>

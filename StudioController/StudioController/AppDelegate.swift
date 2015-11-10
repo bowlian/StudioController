@@ -24,5 +24,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
 
+    @IBOutlet weak var menRemoveMedia: NSMenuItem!
+    @IBAction func menuRemoveMedia(sender: NSMenuItem) {
+        StudioControllerVC.instance.btncRemoveMedia(NSButton())
+    }
 }
-
+let AppDel = NSApplication.sharedApplication().delegate as! AppDelegate

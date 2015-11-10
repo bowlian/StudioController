@@ -21,7 +21,7 @@ class StudioControllerVC: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var indFetching: NSProgressIndicator!
     @IBOutlet weak var lblFetching: NSTextField!
-    static var TableView: NSTableView!
+    static var instance: StudioControllerVC!
     
     var selectedRow: Int? {
         let selRow = tableView.selectedRow
@@ -41,10 +41,10 @@ class StudioControllerVC: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        StudioControllerVC.instance = self
         tableView.setDelegate(self)
         tableView.setDataSource(self)
         tableView.registerForDraggedTypes([NSStringPboardType, NSFilenamesPboardType])
-        StudioControllerVC.TableView = tableView
         tableView.sizeToFit()
     }
     
@@ -56,6 +56,7 @@ class StudioControllerVC: NSViewController {
     
     func upSelRow() {
         btnRemoveMedia.enabled = selectedRow != nil
+        AppDel.menRemoveMedia.enabled = selectedRow != nil
         MPlayerVC.chMedia(selectedMedia, live: false)
     }
     

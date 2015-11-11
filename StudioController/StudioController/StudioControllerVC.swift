@@ -18,13 +18,16 @@ class StudioControllerVC: NSViewController {
     var liveControlsVC: MVControlsVC!
     @IBOutlet weak var btnFetchWeather: NSButton!
     @IBOutlet weak var btnRemoveMedia: NSButton!
+    @IBOutlet weak var btnNext: NSButton!
+    @IBOutlet weak var btnPrev: NSButton!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var indFetching: NSProgressIndicator!
     @IBOutlet weak var lblFetching: NSTextField!
     static var instance: StudioControllerVC!
     
     var selectedRow: Int? {
-        let selRow = tableView.selectedRow
+        let selRows = tableView.selectedRowIndexes
+        let selRow = selRows.lastIndex
         if selRow >= 0 && selRow < Media.medias.count {
             return selRow
         } else {    //If no row is selected
@@ -55,9 +58,22 @@ class StudioControllerVC: NSViewController {
     }
     
     func upSelRow() {
-        btnRemoveMedia.enabled = selectedRow != nil
-        AppDel.menRemoveMedia.enabled = selectedRow != nil
-        MPlayerVC.chMedia(selectedMedia, live: false)
+        //Intelligently show/hide buttons based on selected items
+        let isRowSel = selectedRow != nil
+        let canPrev = selectedRow > 0
+        let canNext = isRowSel && selectedRow < numberOfRowsInTableView(tableView) - 1
+        btnRemoveMedia.enabled = isRowSel
+        btnPrev.enabled = canPrev
+        btnNext.enabled = canNext
+        AppDel.menRemoveMedia.enabled = isRowSel
+        AppDel.mControlPrev.enabled = canPrev
+        AppDel.mControlNext.enabled = canNext
+        
+        if liveNexting {    //If next/prev button, disable preview
+            MPlayerVC.chMedia(nil, live: false)
+        } else {    //If normal selection change, update preview
+            MPlayerVC.chMedia(selectedMedia, live: false)
+        }
     }
     
     @IBAction func btncRemoveMedia(sender: NSButton) {
@@ -68,6 +84,23 @@ class StudioControllerVC: NSViewController {
     
     @IBAction func btncGoLive(sender: NSButton) {
         MPlayerVC.swapLive()
+    }
+    @IBAction func btncPrev(sender: NSButton) {
+        liveNext(-1)
+    }
+    @IBAction func btncNext(sender: NSButton) {
+        liveNext(1)
+    }
+    private var liveNexting = false    //Allows upSelRow to determine if next/prev button was used
+    private func liveNext(increment: Int) {
+        liveNexting = true
+        if let selRow = selectedRow {
+            let newRow = selRow + increment
+            let newMedia = Media.medias[newRow]
+            MPlayerVC.chMedia(newMedia, live: true)
+            tableView.selectRowIndexes(NSIndexSet(index: newRow), byExtendingSelection: false)
+        }
+        liveNexting = false
     }
     
     @IBAction func btncFetchWeather(sender: NSButton) {
@@ -263,6 +296,7 @@ class MPlayerVC: NSViewController {
     }
     
     static func chMedia(newMedia: Media?, live: Bool) {
+        print("\(newMedia?.name) \(live)")
         medias[live != livePli] = newMedia
         upPlayers()
     }

@@ -25,8 +25,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBOutlet weak var menRemoveMedia: NSMenuItem!
+    @IBOutlet weak var mControlLive: NSMenuItem!
+    @IBOutlet weak var mControlPrev: NSMenuItem!
+    @IBOutlet weak var mControlNext: NSMenuItem!
     @IBAction func menuRemoveMedia(sender: NSMenuItem) {
         StudioControllerVC.instance.btncRemoveMedia(NSButton())
+    }
+    @IBAction func menuControlLive(sender: NSMenuItem) {
+        StudioControllerVC.instance.btncGoLive(NSButton())
+    }
+    @IBAction func menuControlPrev(sender: NSMenuItem) {
+        StudioControllerVC.instance.btncPrev(NSButton())
+    }
+    @IBAction func menuControlNext(sender: NSMenuItem) {
+        StudioControllerVC.instance.btncNext(NSButton())
     }
 }
 let AppDel = NSApplication.sharedApplication().delegate as! AppDelegate

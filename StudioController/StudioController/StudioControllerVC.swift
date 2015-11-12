@@ -83,8 +83,12 @@ class StudioControllerVC: NSViewController {
         performSegueWithIdentifier("AddMedia", sender: self)
     }
     @IBAction func btncRemoveMedia(sender: NSButton) {
-        if let selRow = selectedRow {
-            Media.removeMedia(selRow)
+        let selInds = tableView.selectedRowIndexes
+        var selInd = selInds.firstIndex
+        var numRemoved = 0
+        while selInd != NSNotFound {    //Apple's recommended method for index iteration
+            Media.removeMedia(selInd - numRemoved++)
+            selInd = selInds.indexGreaterThanIndex(selInd)
         }
     }
     
@@ -302,7 +306,6 @@ class MPlayerVC: NSViewController {
     }
     
     static func chMedia(newMedia: Media?, live: Bool) {
-        print("\(newMedia?.name) \(live)")
         medias[live != livePli] = newMedia
         upPlayers()
     }

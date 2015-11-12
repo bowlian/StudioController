@@ -55,6 +55,9 @@ class StudioControllerVC: NSViewController {
         upSelRow()
         prevPlayerVC.chLive(false, Vcontrols: prevControlsVC)
         livePlayerVC.chLive(true, Vcontrols: liveControlsVC)
+        if view.window!.styleMask & NSClosableWindowMask != 0 {    //Guarantees that the close button is hidden
+            view.window!.styleMask -= NSClosableWindowMask
+        }
     }
     
     func upSelRow() {
@@ -76,6 +79,9 @@ class StudioControllerVC: NSViewController {
         }
     }
     
+    @IBAction func btncAddMedia(sender: NSButton) {
+        performSegueWithIdentifier("AddMedia", sender: self)
+    }
     @IBAction func btncRemoveMedia(sender: NSButton) {
         if let selRow = selectedRow {
             Media.removeMedia(selRow)

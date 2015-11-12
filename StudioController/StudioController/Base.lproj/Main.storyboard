@@ -59,7 +59,11 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" autoenablesItems="NO" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Add Media" keyEquivalent="o" id="Yiq-MX-rA5"/>
+                                        <menuItem title="Add Media" keyEquivalent="i" id="Yiq-MX-rA5">
+                                            <connections>
+                                                <action selector="menuAddMedia:" target="Voe-Tx-rLC" id="Ncf-YJ-JMw"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Remove Media" enabled="NO" id="wYC-v7-7tC">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
@@ -129,19 +133,18 @@ CA
                                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
-                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="menuControlLive:" target="Voe-Tx-rLC" id="63a-Xu-ORd"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="epp-Q3-3Vg"/>
-                                        <menuItem title="Previous" keyEquivalent="" id="HOu-9k-Ast">
+                                        <menuItem isSeparatorItem="YES" enabled="YES" id="epp-Q3-3Vg"/>
+                                        <menuItem title="Previous" enabled="NO" keyEquivalent="" id="HOu-9k-Ast">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="menuControlPrev:" target="Voe-Tx-rLC" id="xsT-ep-dQh"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Next" keyEquivalent="" id="GaV-Dw-xby">
+                                        <menuItem title="Next" enabled="NO" keyEquivalent="" id="GaV-Dw-xby">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="menuControlNext:" target="Voe-Tx-rLC" id="k77-gX-v2c"/>
@@ -179,9 +182,9 @@ DQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="StudioController Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="StudioController Help / Support" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="menuHelp:" target="Voe-Tx-rLC" id="3u4-dA-Mt0"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -195,6 +198,7 @@ DQ
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="StudioController" customModuleProvider="target">
                     <connections>
+                        <outlet property="mAddMedia" destination="Yiq-MX-rA5" id="Pj2-IF-zru"/>
                         <outlet property="mControlLive" destination="wfa-7I-oaa" id="bsc-MB-IZq"/>
                         <outlet property="mControlNext" destination="GaV-Dw-xby" id="kVF-QS-qJ3"/>
                         <outlet property="mControlPrev" destination="HOu-9k-Ast" id="nwV-Qh-JtN"/>
@@ -212,6 +216,7 @@ DQ
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Studio Controller" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="520"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -231,6 +236,7 @@ DQ
                 <windowController storyboardIdentifier="OutputWC" id="MTm-ae-kXo" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="S5W-Te-Ctz">
                         <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
                         <windowPositionMask key="initialPositionMask" rightStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="1408" y="32" width="480" height="360"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
@@ -292,7 +298,7 @@ DQ
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <segue destination="V58-wU-nWL" kind="sheet" id="Jr0-Vh-HtI"/>
+                                    <action selector="btncAddMedia:" target="XfG-lQ-9wD" id="dDb-FM-njD"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-Vd-Sma">
@@ -319,7 +325,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uFA-jS-qDp">
-                                <rect key="frame" x="364" y="230" width="32" height="17"/>
+                                <rect key="frame" x="365" y="230" width="32" height="17"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="LIVE" id="agm-6h-M1m">
                                     <font key="font" metaFont="system"/>
@@ -437,7 +443,7 @@ DQ
                                     <animations/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="u4f-C6-HzJ">
-                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <rect key="frame" x="466" y="23" width="16" height="121"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </scroller>
@@ -448,9 +454,9 @@ DQ
                                 </tableHeaderView>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agc-Qn-WfZ">
-                                <rect key="frame" x="79" y="244" width="112" height="32"/>
+                                <rect key="frame" x="74" y="244" width="122" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="QI6-oz-XbQ"/>
+                                    <constraint firstAttribute="width" constant="110" id="QI6-oz-XbQ"/>
                                     <constraint firstAttribute="height" constant="21" id="XQy-Q6-E1N"/>
                                 </constraints>
                                 <animations/>
@@ -611,11 +617,12 @@ DQ
                         <outlet property="indFetching" destination="nhc-IO-BiV" id="4Er-n2-6u5"/>
                         <outlet property="lblFetching" destination="14N-Mg-imh" id="BHJ-p8-G7y"/>
                         <outlet property="tableView" destination="hmX-yF-hwB" id="719-s6-Yah"/>
+                        <segue destination="V58-wU-nWL" kind="sheet" identifier="AddMedia" id="eLy-Rn-5LF"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="86.5" y="1010.5"/>
+            <point key="canvasLocation" x="86.5" y="1011.5"/>
         </scene>
         <!--MPlayer-->
         <scene sceneID="YdM-rN-ph9">

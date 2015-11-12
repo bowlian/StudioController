@@ -24,10 +24,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
 
+    @IBOutlet weak var mAddMedia: NSMenuItem!
     @IBOutlet weak var menRemoveMedia: NSMenuItem!
     @IBOutlet weak var mControlLive: NSMenuItem!
     @IBOutlet weak var mControlPrev: NSMenuItem!
     @IBOutlet weak var mControlNext: NSMenuItem!
+    @IBAction func menuAddMedia(sender: NSMenuItem) {
+        StudioControllerVC.instance.btncAddMedia(NSButton())
+    }
     @IBAction func menuRemoveMedia(sender: NSMenuItem) {
         StudioControllerVC.instance.btncRemoveMedia(NSButton())
     }
@@ -39,6 +43,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     @IBAction func menuControlNext(sender: NSMenuItem) {
         StudioControllerVC.instance.btncNext(NSButton())
+    }
+    @IBAction func menuHelp(sender: NSMenuItem) {
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://bradztech.com/c/osx/StudioController/help.php")!)
     }
 }
 let AppDel = NSApplication.sharedApplication().delegate as! AppDelegate

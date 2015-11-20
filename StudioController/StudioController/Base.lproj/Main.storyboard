@@ -129,10 +129,8 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Control" autoenablesItems="NO" id="W48-6f-4Dl">
                                     <items>
-                                        <menuItem title="Go Live" id="wfa-7I-oaa">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
+                                        <menuItem title="Go Live" keyEquivalent="." id="wfa-7I-oaa">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="menuControlLive:" target="Voe-Tx-rLC" id="63a-Xu-ORd"/>
                                             </connections>

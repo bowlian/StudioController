@@ -177,7 +177,7 @@ class StudioControllerVC: NSViewController {
                     lblFetching.textColor = NSColor(red: 0, green: 0.7, blue: 0.2, alpha: 1)
                 }
             }
-            tableView.reloadDataForRowIndexes(NSIndexSet(indexesInRange: NSMakeRange(0, numberOfRowsInTableView(tableView))), columnIndexes: NSIndexSet(indexesInRange: NSMakeRange(0, 2)))
+            tableView.reloadData()
         }
     }
 
@@ -216,6 +216,8 @@ extension StudioControllerVC: NSTableViewDelegate, NSTableViewDataSource, NSText
         }
         if let _ = media as? Weather {
             cellView.textField!.textColor = NSColor(red: 0.2, green: 0, blue: 0.8, alpha: 1)
+        } else {
+            cellView.textField!.textColor = NSColor.blackColor()
         }
         cellView.textField!.delegate = self
         return cellView

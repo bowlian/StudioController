@@ -106,9 +106,13 @@ class StudioControllerVC: NSViewController {
         liveNexting = true
         if let selRow = selectedRow {
             let newRow = selRow + increment
-            let newMedia = Media.medias[newRow]
-            MPlayerVC.chMedia(newMedia, live: true)
-            tableView.selectRowIndexes(NSIndexSet(index: newRow), byExtendingSelection: false)
+            if newRow >= 0 && newRow < Media.medias.count {
+                let newMedia = Media.medias[newRow]
+                MPlayerVC.chMedia(newMedia, live: true)
+                if newRow < tableView.numberOfRows {
+                    tableView.selectRowIndexes(NSIndexSet(index: newRow), byExtendingSelection: false)
+                }
+            }
         }
         liveNexting = false
     }
@@ -282,11 +286,11 @@ class MPlayerVC: NSViewController {
     
     //Static variables
     private static var insts = [MPlayerVC]()
-    private static var players: [Bool: VPlayer] = [false: VPlayer(), true: VPlayer()]
+    private static var players: [Bool: VPlayer?] = [false: nil, true: nil]
     private static var medias: [Bool: Media?] = [false: nil, true: nil]
     private static var livePli: Bool = true
     
-    private static func outPlayer(mpvc: MPlayerVC) -> VPlayer {
+    private static func outPlayer(mpvc: MPlayerVC) -> VPlayer? {
         if !insts.contains(mpvc) {
             insts.append(mpvc)
         }
@@ -300,7 +304,7 @@ class MPlayerVC: NSViewController {
     
     private static func upPlayers() {
         for (ilive, player) in players {
-            player.muted = !ilive //Mute audio if not live
+            player?.muted = !ilive //Mute audio if not live
         }
         for mpvc in insts {
             mpvc.changeMedia(medias[mpvc.isLive != livePli]!)

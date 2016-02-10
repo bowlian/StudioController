@@ -47,5 +47,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func menuHelp(sender: NSMenuItem) {
         NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://bradztech.com/c/osx/StudioController/help.php")!)
     }
+    @IBAction func menuReset(sender: NSMenuItem) {
+        let ufalert = NSAlert()
+        ufalert.messageText = "Reset StudioController"
+        ufalert.informativeText = "Are you sure? This will delete all StudioController settings. It should only be used if something is corrupted and is causing crashes.\n\nThe application will close to complete the reset process."
+        ufalert.addButtonWithTitle("Reset")
+        ufalert.addButtonWithTitle("Cancel")
+        let responseBtn = ufalert.runModal()
+        if responseBtn == NSAlertFirstButtonReturn {
+            File.dset(.mediaList, nil)
+            exit(0)
+        }
+    }
 }
 let AppDel = NSApplication.sharedApplication().delegate as! AppDelegate

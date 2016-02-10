@@ -286,7 +286,7 @@ class MPlayerVC: NSViewController {
     
     //Static variables
     private static var insts = [MPlayerVC]()
-    private static var players: [Bool: VPlayer?] = [false: nil, true: nil]
+    private static var players: [Bool: VPlayer] = [false: VPlayer(URL: NSURL()), true: VPlayer(URL: NSURL())]
     private static var medias: [Bool: Media?] = [false: nil, true: nil]
     private static var livePli: Bool = true
     
@@ -304,7 +304,7 @@ class MPlayerVC: NSViewController {
     
     private static func upPlayers() {
         for (ilive, player) in players {
-            player?.muted = !ilive //Mute audio if not live
+            player.muted = !ilive //Mute audio if not live
         }
         for mpvc in insts {
             mpvc.changeMedia(medias[mpvc.isLive != livePli]!)

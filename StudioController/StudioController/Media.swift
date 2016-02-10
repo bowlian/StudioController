@@ -166,12 +166,14 @@ class Media: NSObject, NSCoding {
         StudioControllerVC.instance.tableView.insertRowsAtIndexes(insertIndSet!, withAnimation: .EffectFade)
     }
     static func removeMedia(index: Int) {
-        let delMedia = medias[index]
-        if delMedia.isLocal {
-            File.rm(delMedia.url)
+        if index >= 0 && index < medias.count {
+            let delMedia = medias[index]
+            if delMedia.isLocal {
+                File.rm(delMedia.url)
+            }
+            medias.removeAtIndex(index)
+            StudioControllerVC.instance.tableView.removeRowsAtIndexes(NSIndexSet(index: index), withAnimation: .EffectFade)
         }
-        medias.removeAtIndex(index)
-        StudioControllerVC.instance.tableView.removeRowsAtIndexes(NSIndexSet(index: index), withAnimation: .EffectFade)
     }
 }
 
